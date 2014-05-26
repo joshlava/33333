@@ -1,1 +1,8 @@
 /bin/
+
+.settings/org.eclipse.jdt.core.prefs
+
+*.prefs
+*.gitattributes
+*.resources
+*.metadata
