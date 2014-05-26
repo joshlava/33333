@@ -6,17 +6,23 @@ import java.util.ArrayDeque;
 public class Node {
 	
 	int whiteSpace;
-	ArrayDeque moves = new ArrayDeque();
+	int score;
+	ArrayDeque<String> moves = new ArrayDeque<String>();
 	
-	public Node(int whiteSpace, ArrayDeque moves){
+	public Node(int whiteSpace, int score, ArrayDeque<String> moves){
 		this.whiteSpace = whiteSpace;
 		this.moves = moves;
+		this.score=score;
 	}
 	
 	public void printNode(){
-		while(!moves.isEmpty()){
-			System.out.print(moves.remove());
+		ArrayDeque<String> tempnode=moves.clone();
+		System.out.println("NODE.MOVES CONTENT BEING PRINTED HERE ");
+		while(!tempnode.isEmpty()){
+			System.out.print(tempnode.remove());
 		}
+		System.out.println("");
+		System.out.println("NODE MOVES CONTENT FINISHED PRINTING");
 	}
 	
 }

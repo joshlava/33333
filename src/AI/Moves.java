@@ -22,7 +22,7 @@ public class Moves {
 		
 		ArrayDeque<String> tempMoves = moves.clone();
 		
-		GUI.Threes.printArr(tempMoves);
+		//GUI.Threes.printArr(tempMoves);
 		
 		int movesSize = tempMoves.size();
 		int[] isValid = { 0, 0 };
@@ -30,50 +30,50 @@ public class Moves {
 		int score = 0;
 		int whiteSpace = 0;
 		for (int i = 0; i < movesSize; i++) {
-			isValid[0] = 0;
-			isValid[1] = 0;
-			if (tempMoves.peek().equals("L")) {
+			isValid[0] = -1;
+			isValid[1] = -1;
+			if (tempMoves.peekLast().equals("L")) {
 				isValid = Left(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(tempMoves.poll());
+					Listy.add(tempMoves.pollLast());
 				}
-			} else if (tempMoves.peek().equals("R")) {
+			} else if (tempMoves.peekLast().equals("R")) {
 				isValid = Right(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(tempMoves.poll());
+					Listy.add(tempMoves.pollLast());
 				}
-			} else if (tempMoves.peek().equals("U")) {
+			} else if (tempMoves.peekLast().equals("U")) {
 				isValid = Up(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(tempMoves.poll());
+					Listy.add(tempMoves.pollLast());
 				}
-			} else if (tempMoves.peek().equals("D")) {
+			} else if (tempMoves.peekLast().equals("D")) {
 				isValid = Down(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(tempMoves.poll());
+					Listy.add(tempMoves.pollLast());
 				}
 			} else {
 				tempMoves.remove();
 			}
 		}
 		GUI.Threes.board = tempBoard;
-		GUI.Threes.printArr(tempMoves);
+	//	GUI.Threes.printListArr(Listy);
 		GUI.Threes.board = board;
 		resetNext();
 		Listy.addFirst(whiteSpace);

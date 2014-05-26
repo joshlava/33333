@@ -1,0 +1,3 @@
+
+Your score was: 189
+D,D,D,D,L,R,R,R,U,U,L,L,L,L,L,

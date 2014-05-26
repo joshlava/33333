@@ -5,115 +5,100 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+//Why doesnt it move to DDDDLR?
+//and how is DDDDL still at the front of the list if its already removed. 
+//because it will remove it, then it will check the best and re make the same node over and over
 
 public class AI {
 
-	
-	private LinkedList<String> AStar(int [][] board){
-		
+	private ArrayDeque<String> AStar(int[][] board) {
+		int z = 6000;
 		Comparator<Node> comparator = new BestMoveComparator();
-		PriorityQueue<Node> openList = new PriorityQueue<Node>(10, comparator);
-		
+		PriorityQueue<Node> openList = new PriorityQueue<Node>(z, comparator);
+		ArrayDeque<Node> closedList = new ArrayDeque<Node>();
 		GUI.Threes.readFile();
 		GUI.Threes.set();
-		ArrayDeque initialMoves = new ArrayDeque();
-		initialMoves.add(" ");
-		Node initial = new Node(Moves.CountWhite(GUI.Threes.board), initialMoves);
-		openList.add(initial); //add initial board to openList
-		
-		LinkedList<String> moves = new LinkedList<String>();
-		
+		ArrayDeque<String> initialMoves = new ArrayDeque<String>();
+		// initialMoves.add(" ");
+		Node initial = new Node(Moves.CountWhite(GUI.Threes.board),
+				Moves.countScore(GUI.Threes.board), initialMoves);
+		openList.add(initial); // add initial board to openList
+
+		ArrayDeque<String> moves = new ArrayDeque<String>();
+		int whiteSpace = 0;
+		int Score = 0;
 		int goal = 10;
 		int i = 0;
-		while(!openList.isEmpty() && i < 10){
+		while (!openList.isEmpty() && i < z) {
 			Node node = openList.element();
-			node.printNode();
-			int whiteSpace = node.whiteSpace;
-			LinkedList temp = new LinkedList();
-			
-			//while(whiteSpace < goal && openList.size() < 100){
-				
-				node.moves.add("L");
+			if (!closedList.contains(node)) {
+				closedList.add(node);
+				/*
+				 * System.out.println("/=/=/=/=/==/=/=/=/=/=/==");
+				 * System.out.print("Size of openList ");
+				 * System.out.println(openList.size());
+				 * System.out.print("The whitespace of best node is: ");
+				 * System.out.println(node.whiteSpace);
+				 */
+
+				moves = node.moves;
+				// node.printNode();
+				whiteSpace = node.whiteSpace;
+				Score = node.score;
+				LinkedList<Object> temp = new LinkedList<Object>();
+
+				// while(whiteSpace < goal && openList.size() < 100){
+
+				node.moves.offer("L");
 				temp = Moves.doMove(board, node.moves);
-				Node left = new Node((Integer)temp.get(1), node.moves.clone());
+				int tempint = (Integer) temp.get(1);
+				Node left = new Node(tempint, (Integer) temp.get(0),
+						node.moves.clone());
 				openList.add(left);
 				node.moves.removeLast();
-				
+
 				node.moves.add("R");
 				temp = Moves.doMove(board, node.moves);
-				Node right = new Node((Integer)temp.get(1), node.moves);
+				Node right = new Node((Integer) temp.get(1),
+						(Integer) temp.get(0), node.moves.clone());
 				openList.add(right);
 				node.moves.removeLast();
-				
-				node.moves.add("U");
-				temp = Moves.doMove(board, node.moves);
-				Node up = new Node((Integer)temp.get(1), node.moves);
-				openList.add(up);
-				node.moves.removeLast();
-				
+
 				node.moves.add("D");
 				temp = Moves.doMove(board, node.moves);
-				Node down = new Node((Integer)temp.get(1), node.moves);
+				Node down = new Node((Integer) temp.get(1),
+						(Integer) temp.get(0), node.moves.clone());
 				openList.add(down);
 				node.moves.removeLast();
 
-			//}
+				node.moves.offer("U");
+				temp = Moves.doMove(board, node.moves);
+				Node up = new Node((Integer) temp.get(1),
+						(Integer) temp.get(0), node.moves.clone());
+				openList.add(up);
+				node.moves.removeLast();
+
+				// }
+			}
+
 			i++;
 		}
-		/*
-		PriorityQueue<ArrayList> OpenList = new PriorityQueue<ArrayList>();
-		ArrayList<Object> nodes =new ArrayList<Object>();
-		int goal = 10;
-		while(!OpenList.isEmpty()){
-			ArrayList<Object> node=OpenList.element();
-			int score = (Integer) node.get(1);
-			ArrayDeque<String> listMoves = (ArrayDeque<String>) node.get(0);
-			LinkedList temp=new LinkedList();
-			while(score!=goal&&OpenList.size()<100){
-				for(int i=0;i<4;i++){
-					if(i==0){
-						listMoves.add("L");
-						node.clear();
-						node.add(listMoves);
-						temp=Moves.doMove(board, listMoves); // may need to reset board
-						node.add(temp.get(1));  
-						listMoves.removeLast(); //can put this at top of for loop
-						
-						
-					}else if(i==1){
-						listMoves.add("R");
-						node.clear();
-						node.add(listMoves);
-						temp=Moves.doMove(board, listMoves);
-						node.add(temp.get(1)); 
-						listMoves.removeLast();
-
-					}
-				}
-				
-			}
-			
-			
-			
-			
-			
-			
-			
-		}
-		
-		
-		
-		
-	*/	
+		String whitescore = "White Space Score is: " + whiteSpace;
+		String scorescore = "Game Score is: " + Score;
+		moves.addFirst(whitescore);
+		moves.addFirst(scorescore);
 		return moves;
-	
-		
+
 	}
-	public static void main(String [] args){
+
+	public static void main(String[] args) {
 		AI a = new AI();
 		GUI.Threes.readFile();
 		GUI.Threes.set();
-		a.AStar(GUI.Threes.board);
+		ArrayDeque<String> Res = a.AStar(GUI.Threes.board);
+		while (!Res.isEmpty()) {
+			System.out.println(Res.removeLast());
+		}
 	}
-	
+
 }

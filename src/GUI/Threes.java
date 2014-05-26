@@ -157,9 +157,28 @@ public class Threes {
 		}
 		System.out.print("____________");
 		
-		ArrayDeque<String> tempMoves = moves.clone();
+		ArrayDeque tempMoves = moves.clone();
 
 		while(!tempMoves.isEmpty()){
+			System.out.print(tempMoves.remove());
+		}
+	}
+	public static void printListArr(LinkedList moves) {
+		System.out.println();
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				System.out.print(board[i][j]+" ");
+			}
+			System.out.println("");
+
+		}
+		System.out.print("***********");
+		
+		LinkedList tempMoves = new LinkedList(moves);
+
+		while(!tempMoves.isEmpty()){
+			int a =tempMoves.size();
+			System.out.println("Size of List is: " +a);
 			System.out.print(tempMoves.remove());
 		}
 	}
