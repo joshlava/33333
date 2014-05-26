@@ -1,13 +1,30 @@
 package AI;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Moves {
+public class Moves { 
 
+	private static LinkedList<String> next = new LinkedList<String>();
+	
 	public static LinkedList<Object> doMove(int[][] board,
 			ArrayDeque<String> moves) {
-		int movesSize = moves.size();
+		
+		
+		resetNext();
+		int[][] tempBoard = new int[4][4];
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				tempBoard[i][j] = board[i][j];
+			}
+		}
+		
+		ArrayDeque<String> tempMoves = moves.clone();
+		
+		GUI.Threes.printArr(tempMoves);
+		
+		int movesSize = tempMoves.size();
 		int[] isValid = { 0, 0 };
 		LinkedList<Object> Listy = new LinkedList<Object>();
 		int score = 0;
@@ -15,47 +32,57 @@ public class Moves {
 		for (int i = 0; i < movesSize; i++) {
 			isValid[0] = 0;
 			isValid[1] = 0;
-			if (moves.peek().equals("L")) {
-				isValid = Left(board);
+			if (tempMoves.peek().equals("L")) {
+				isValid = Left(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(moves.poll());
+					Listy.add(tempMoves.poll());
 				}
-			} else if (moves.peek().equals("R")) {
-				isValid = Right(board);
+			} else if (tempMoves.peek().equals("R")) {
+				isValid = Right(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(moves.poll());
+					Listy.add(tempMoves.poll());
 				}
-			} else if (moves.peek().equals("U")) {
-				isValid = Up(board);
+			} else if (tempMoves.peek().equals("U")) {
+				isValid = Up(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(moves.poll());
+					Listy.add(tempMoves.poll());
 				}
-			} else if (moves.peek().equals("D")) {
-				isValid = Down(board);
+			} else if (tempMoves.peek().equals("D")) {
+				isValid = Down(tempBoard);
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
 
-					Listy.add(moves.poll());
+					Listy.add(tempMoves.poll());
 				}
+			} else {
+				tempMoves.remove();
 			}
 		}
+		GUI.Threes.board = tempBoard;
+		GUI.Threes.printArr(tempMoves);
+		GUI.Threes.board = board;
+		resetNext();
 		Listy.addFirst(whiteSpace);
 		Listy.addFirst(score);
 		return Listy;
+	}
+	
+	public static void resetNext(){
+		next = new LinkedList<String>(GUI.Threes.next);
 	}
 
 	public static int[] Left(int[][] board) {
@@ -89,7 +116,7 @@ public class Moves {
 				did = true;
 			} else if ((board[i][2] != 0 && board[i][0] != 0)
 					&& (board[i][1] == 1 && board[i][2] == 2 || board[i][1] == 2
-							&& board[i][2] == 1)) {
+					&& board[i][2] == 1)) {
 				board[i][1] = 3;
 				board[i][2] = board[i][3];
 				board[i][3] = 0;
@@ -134,7 +161,7 @@ public class Moves {
 		if (did1) {
 			// setNext(lowest, 3);
 			try {
-				board[lowest][3] = Integer.parseInt(GUI.Threes.next.remove());
+				board[lowest][3] = Integer.parseInt(next.remove());
 			} catch (NumberFormatException n) {
 				if (GUI.Threes.next.size() != 0) {
 
@@ -229,7 +256,7 @@ public class Moves {
 		if (did1) {
 			// setNext(lowest, 0);
 			try {
-				board[lowest][0] = Integer.parseInt(GUI.Threes.next.remove());
+				board[lowest][0] = Integer.parseInt(next.remove());
 			} catch (NumberFormatException n) {
 				if (GUI.Threes.next.size() != 0) {
 
@@ -278,7 +305,7 @@ public class Moves {
 				did = true;
 			} else if ((board[1][i] != 0 && board[0][i] != 0)
 					&& (board[1][i] == 1 && board[2][i] == 2 || board[1][i] == 2
-							&& board[2][i] == 1)) {
+					&& board[2][i] == 1)) {
 				board[1][i] = 3;
 				board[2][i] = board[3][i];
 				board[3][i] = 0;
@@ -290,7 +317,7 @@ public class Moves {
 				did = true;
 			} else if ((board[2][i] != 0 && board[1][i] != 0 && board[0][i] != 0)
 					&& (board[2][i] == 1 && board[3][i] == 2 || board[2][i] == 2
-							&& board[3][i] == 1)) {
+					&& board[3][i] == 1)) {
 				board[2][i] = 3;
 				board[3][i] = 0;
 				did = true;
@@ -326,7 +353,7 @@ public class Moves {
 		if (did1) {
 			// setNext(3, lowest);
 			try {
-				board[3][lowest] = Integer.parseInt(GUI.Threes.next.remove());
+				board[3][lowest] = Integer.parseInt(next.remove());
 			} catch (NumberFormatException n) {
 				if (GUI.Threes.next.size() != 0) {
 
@@ -377,7 +404,7 @@ public class Moves {
 				did = true;
 			} else if ((board[k][i] != 0 && board[k - 1][i] != 0)
 					&& (board[k - 1][i] == 1 && board[k - 2][i] == 2 || board[k - 1][i] == 2
-							&& board[k - 2][i] == 1)) {
+					&& board[k - 2][i] == 1)) {
 				board[k - 1][i] = 3;
 				board[k - 2][i] = board[k - 3][i];
 				board[k - 3][i] = 0;
@@ -389,7 +416,7 @@ public class Moves {
 				did = true;
 			} else if ((board[k][i] != 0 && board[k - 1][i] != 0 && board[k - 2][i] != 0)
 					&& ((board[k - 2][i] == 1 && board[k - 3][i] == 2 || board[k - 2][i] == 2
-							&& board[k - 3][i] == 1))) {
+					&& board[k - 3][i] == 1))) {
 				board[k - 2][i] = 3;
 				board[k - 3][i] = 0;
 				did = true;
@@ -424,7 +451,7 @@ public class Moves {
 		if (did1) {
 			// setNext(0, lowest);
 			try {
-				board[0][lowest] = Integer.parseInt(GUI.Threes.next.remove());
+				board[0][lowest] = Integer.parseInt(next.remove());
 			} catch (NumberFormatException n) {
 				if (GUI.Threes.next.size() != 0) {
 
@@ -462,10 +489,10 @@ public class Moves {
 				} else {
 					int x = board[i][j];
 					double y = (Math.log10(x / 3) / Math.log10(2) + 1);// pretty
-																		// sure
-																		// that
-																		// this
-																		// works
+					// sure
+					// that
+					// this
+					// works
 
 					count += Math.pow(3, y);
 					// 3 ^ (log2(x / 3) + 1)
@@ -493,35 +520,35 @@ public class Moves {
 			for(int j=0;j<4;j++){
 				testBoard[i][j]=3;
 			}
-			
+
 		}
 		int testScore=0;
 		for (int i=0;i<4;i++){
 			for(int j=0;j<4;j++){
 				testScore+=testBoard[i][j];
 			}
-			
+
 		}
 		System.out.println("moves executed:");
 		System.out.println("Test score score: " +testScore);
 		System.out.println("white space of initial board is: "
 				+ CountWhite(GUI.Threes.board));
 		System.out.println("The initial board is:");
-		GUI.Threes.printArr();
+		//GUI.Threes.printArr();
 		LinkedList<Object> dog = doMove(testBoard, ard);
 
 		System.out.println("white space of final board is: "
 				+ CountWhite(GUI.Threes.board));
 		System.out.println("The final board is");
-		GUI.Threes.printArr();
+		//GUI.Threes.printArr();
 		System.out.println("score is: " + dog.get(0));
 		System.out.println("Amount of WhiteSpace is: " + dog.get(1));
-		 testScore=0;
+		testScore=0;
 		for (int i=0;i<4;i++){
 			for(int j=0;j<4;j++){
 				testScore+=testBoard[i][j];
 			}
-			
+
 		}
 		System.out.println("moves executed:");
 		System.out.println("Test score score: " +testScore);

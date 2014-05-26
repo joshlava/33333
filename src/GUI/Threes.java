@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.Scanner;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -145,13 +146,21 @@ public class Threes {
 		moves += ",";
 	}
 
-	public static void printArr() {
+	public static void printArr(ArrayDeque moves) {
+		System.out.println();
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				System.out.print(board[i][j]+" ");
 			}
-			System.out.println();
+			System.out.println("");
 
+		}
+		System.out.print("____________");
+		
+		ArrayDeque<String> tempMoves = moves.clone();
+
+		while(!tempMoves.isEmpty()){
+			System.out.print(tempMoves.remove());
 		}
 	}
 

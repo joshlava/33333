@@ -1,12 +1,22 @@
 package AI;
-import java.util.ArrayList;
+
+import java.util.ArrayDeque;
 
 
 public class Node {
-	int score;
-	ArrayList moves = new ArrayList();
 	
-	public Node(int score){
-		this.score = score;
+	int whiteSpace;
+	ArrayDeque moves = new ArrayDeque();
+	
+	public Node(int whiteSpace, ArrayDeque moves){
+		this.whiteSpace = whiteSpace;
+		this.moves = moves;
 	}
+	
+	public void printNode(){
+		while(!moves.isEmpty()){
+			System.out.print(moves.remove());
+		}
+	}
+	
 }
