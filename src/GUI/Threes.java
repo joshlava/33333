@@ -32,7 +32,6 @@ public class Threes {
 	public static int[][] board = new int[4][4];
 
 	public static void readFile() {
-
 		try {
 			Scanner sc = new Scanner(new FileReader("exampleinput.txt"));
 			// sc.useDelimiter("\\t");
