@@ -12,7 +12,7 @@ import java.util.PriorityQueue;
 public class AI {
 
 	private ArrayDeque<String> AStar(int[][] board) {
-		int z = 6000;
+		int z = 15;
 		Comparator<Node> comparator = new BestMoveComparator();
 		PriorityQueue<Node> openList = new PriorityQueue<Node>(z, comparator);
 		ArrayDeque<Node> closedList = new ArrayDeque<Node>();
@@ -56,6 +56,7 @@ public class AI {
 						node.moves.clone());
 				openList.add(left);
 				node.moves.removeLast();
+				System.out.println("Whitespace is: " + (Integer)temp.get(1));
 
 				node.moves.add("R");
 				temp = Moves.doMove(board, node.moves);
@@ -63,6 +64,7 @@ public class AI {
 						(Integer) temp.get(0), node.moves.clone());
 				openList.add(right);
 				node.moves.removeLast();
+				System.out.println("Whitespace is: " + (Integer)temp.get(1));
 
 				node.moves.add("D");
 				temp = Moves.doMove(board, node.moves);
@@ -70,6 +72,7 @@ public class AI {
 						(Integer) temp.get(0), node.moves.clone());
 				openList.add(down);
 				node.moves.removeLast();
+				System.out.println("Whitespace is: " + (Integer)temp.get(1));
 
 				node.moves.offer("U");
 				temp = Moves.doMove(board, node.moves);
@@ -77,6 +80,7 @@ public class AI {
 						(Integer) temp.get(0), node.moves.clone());
 				openList.add(up);
 				node.moves.removeLast();
+				System.out.println("Whitespace is: " + (Integer)temp.get(1));
 
 				// }
 			}
