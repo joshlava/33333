@@ -12,18 +12,24 @@ public class PriorityQueueTest {
 
 		ArrayDeque moves = new ArrayDeque();
 		
-		Node a = new Node(120,8, moves);
-		Node b = new Node(10,8, moves);
-		Node c = new Node(55,6, moves);
-		Node d = new Node(55,8, moves);
+		Node a = new Node(8,120, moves);
+		Node b = new Node(8,10, moves);
+		Node c = new Node(6,55, moves);
+		Node d = new Node(8,55, moves);
+		Node e=new Node(8,55, moves);
 		queue.add(a);
 		queue.add(b);
 		queue.add(c);
 		queue.add(d);
-		
+	/*	b = new Node(66,58,moves);
+		queue.add(b);*/
+		if(e.equals(d)){
+			System.out.println("Contains");
+		}else
+			System.out.println("Does not ");
 		while (queue.size() != 0)
         {
-            System.out.println(queue.remove().whiteSpace);
+            System.out.println(queue.remove().score);
         }
 	}
 	

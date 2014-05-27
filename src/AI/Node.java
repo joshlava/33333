@@ -24,5 +24,12 @@ public class Node {
 		System.out.println("");
 		System.out.println("NODE MOVES CONTENT FINISHED PRINTING");
 	}
+	public boolean isEqauls(Node a, Node b){
+		if(a.whiteSpace==b.whiteSpace&&a.score==b.score&& a.moves.equals(b.moves))
+			return true;
+		else
+			return false;
+		
+	}
 	
 }
