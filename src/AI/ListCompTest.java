@@ -40,8 +40,6 @@ public class ListCompTest {
 
 		
 		
-
-		
 		int res= ListComp(zero,one,two,three);
 			
 		switch (res){
