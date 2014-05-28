@@ -12,7 +12,7 @@ import java.util.PriorityQueue;
 public class AI {
 
 	private ArrayDeque<String> AStar(int[][] board) {
-		int z = 1000;
+		int z = 5;
 		//int z = 6;
 
 		Comparator<Node> comparator = new BestMoveComparator();
