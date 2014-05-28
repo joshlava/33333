@@ -527,13 +527,23 @@ public class Moves {
 		ArrayList<Integer> score = new ArrayList<Integer>();
 		int x;
 		int y;
+		
+			
 		for (int i=0;i<4;i++){
-			if(type == 0){
-				 x=i;
-				 y=rc;
-			}else {
-				 x=i;
-			 	y=rc;}
+			switch (type){
+			case 0 : 
+				x=rc;
+				y=3-i;
+				break;
+			case 1:
+				x=rc;
+				y=i;
+				break;
+			case 2:
+				y=rc;
+				
+				
+			}
 			score.add(board[x][y]);
 		}
 		
