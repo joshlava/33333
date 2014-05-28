@@ -12,8 +12,7 @@ import java.util.PriorityQueue;
 public class AI {
 
 	private ArrayDeque<String> AStar(int[][] board) {
-		int z = 50;
-		//int z = 6;
+		int z = 1000;
 
 		Comparator<Node> comparator = new BestMoveComparator();
 		PriorityQueue<Node> openList = new PriorityQueue<Node>(z, comparator);
