@@ -5,16 +5,15 @@ import java.util.ArrayDeque;
 
 public class Node {
 	
-	int whiteSpace;
+	int hScore;
 	int score;
-	int big;
+	
 	ArrayDeque<String> moves = new ArrayDeque<String>();
 	
-	public Node(int whiteSpace, int score, int big, ArrayDeque<String> moves){
-		this.whiteSpace = whiteSpace;
+	public Node(int hScore , int score,  ArrayDeque<String> moves){
+		this.hScore = hScore;
 		this.moves = moves;
 		this.score=score;
-		this.big = big;
 	}
 	
 	public void printNode(){
@@ -27,7 +26,7 @@ public class Node {
 		System.out.println("NODE MOVES CONTENT FINISHED PRINTING");
 	}
 	public boolean isEqauls(Node a, Node b){
-		if(a.whiteSpace==b.whiteSpace&&a.score==b.score&& a.moves.equals(b.moves))
+		if(a.moves.equals(b.moves))
 			return true;
 		else
 			return false;

@@ -150,7 +150,14 @@ public class Threes {
 		moves += move;
 		moves += ",";
 	}
-
+public static void finalBoard(){
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			System.out.print(board[i][j] + " ");
+		}
+		System.out.println("");
+	}
+}
 	public static void printArr(ArrayDeque moves) {
 		System.out.println();
 		for (int i = 0; i < 4; i++) {

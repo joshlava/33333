@@ -1,0 +1,114 @@
+	public static int ListComp4(ArrayList<Integer> a, ArrayList<Integer> b,
+			ArrayList<Integer> c, ArrayList<Integer> d, boolean fix) {
+		int start = 0;
+		int low = 0;
+		ArrayList<Integer> lowest = new ArrayList<Integer>();
+
+		if (!fix) {
+			if (a.get(0) == 1)
+				lowest = (ArrayList<Integer>) a.clone();
+			else if (b.get(0) == 1) {
+				lowest = (ArrayList<Integer>) b.clone();
+				low = 1;
+				start = 1;
+			} else if (c.get(0) == 1) {
+				lowest = (ArrayList<Integer>) c.clone();
+				low = 2;
+				start = 2;
+			} else {
+				low = 3;
+			}
+
+			if (start == 0) {
+				for (int i = 1; i < a.size(); i++) {
+					if (a.get(i) > b.get(i)) {
+						lowest = (ArrayList<Integer>) b.clone();
+						low = 1;
+						break;
+					} else if (a.get(i) < b.get(i)) {
+						break;
+
+					}
+				}
+				start++;
+			}
+			if (start > 0) {
+				for (int i = 1; i < 5; i++) {
+					if (lowest.get(i) > c.get(i)) {
+						lowest = (ArrayList<Integer>) c.clone();
+						low = 2;
+						break;
+					} else if (lowest.get(i) < c.get(i)) {
+						break;
+					}
+				}
+				start++;
+			}
+			if (start > 1) {
+				for (int i = 1; i < 5; i++) {
+					if (lowest.get(i) > d.get(i)) {
+						lowest = (ArrayList<Integer>) d.clone();
+						low = 3;
+						break;
+					} else if (lowest.get(i) < d.get(i)) {
+						break;
+					}
+				}
+			}
+		} else {
+			low = 3;
+			if (d.get(0) == 1)
+				lowest = (ArrayList<Integer>) d.clone();
+			else if (c.get(0) == 1) {
+				lowest = (ArrayList<Integer>) c.clone();
+				low = 2;
+				start = 1;
+			} else if (b.get(0) == 1) {
+				lowest = (ArrayList<Integer>) b.clone();
+				low = 1;
+				start = 2;
+			} else {
+				low = 0;
+			}
+
+			if (start == 0) {
+				for (int i = 1; i < a.size(); i++) {
+					if (d.get(i) > c.get(i)) {
+						lowest = (ArrayList<Integer>) c.clone();
+						low = 2;
+						break;
+					} else if (d.get(i) < c.get(i)) {
+						break;
+
+					}
+				}
+				start++;
+			}
+			if (start > 0) {
+				for (int i = 1; i < 5; i++) {
+					if (lowest.get(i) > b.get(i)) {
+						lowest = (ArrayList<Integer>) b.clone();
+						low = 1;
+						break;
+					} else if (lowest.get(i) < b.get(i)) {
+						break;
+					}
+				}
+				start++;
+			}
+			if (start > 1) {
+				for (int i = 1; i < 5; i++) {
+					if (lowest.get(i) > a.get(i)) {
+						lowest = (ArrayList<Integer>) a.clone();
+						low = 0;
+						break;
+					} else if (lowest.get(i) < a.get(i)) {
+						break;
+					}
+				}
+			}
+		}
+
+		return low;
+
+	}

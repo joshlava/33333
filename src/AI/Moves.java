@@ -1,5 +1,6 @@
 package AI;
-
+//****************************************
+//need to fix input file so it ignores anything other than LRUD
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -9,7 +10,7 @@ public class Moves {
 	private static LinkedList<String> next = new LinkedList<String>();
 
 	public static LinkedList<Object> doMove(int[][] board,
-			ArrayDeque<String> moves) {
+			ArrayDeque<String> moves,boolean print) {
 
 		resetNext();
 		int[][] tempBoard = new int[4][4];
@@ -27,8 +28,8 @@ public class Moves {
 		int[] isValid = { 0, 0 };
 		LinkedList<Object> Listy = new LinkedList<Object>();
 		int score = 0;
-		int whiteSpace = 0;
-		int big = 0;
+		int hScore = 0;
+	
 		for (int i = 0; i < movesSize; i++) {
 			isValid[0] = -1;
 			isValid[1] = -1;
@@ -37,8 +38,8 @@ public class Moves {
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
-					whiteSpace = isValid[1];
-					big = isValid[2];
+					hScore = isValid[1];
+					;
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -47,8 +48,7 @@ public class Moves {
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
-					whiteSpace = isValid[1];
-					big = isValid[2];
+					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -57,8 +57,7 @@ public class Moves {
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
-					whiteSpace = isValid[1];
-					big = isValid[2];
+					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -67,8 +66,7 @@ public class Moves {
 
 				if (isValid[0] != -1) {
 					score = isValid[0];
-					whiteSpace = isValid[1];
-					big = isValid[2];
+					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -77,12 +75,13 @@ public class Moves {
 			}
 		}
 		GUI.Threes.board = tempBoard;
-		// GUI.Threes.printListArr(Listy);
+	//	GUI.Threes.printListArr(Listy);
 		GUI.Threes.board = board;
 		resetNext();
-		Listy.addFirst(big);
-		Listy.addFirst(whiteSpace);
 		Listy.addFirst(score);
+		Listy.addFirst(hScore);
+		if(print)
+			GUI.Threes.board = tempBoard;
 		return Listy;
 	}
 
@@ -97,7 +96,7 @@ public class Moves {
 		int numMoved = 0;
 		ArrayList<Integer>[] rowScore = new ArrayList[4];
 		int lowest = 0;
-		int[] scores = { -1, -1, -1 };
+		int[] scores = { -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			did = false;
 			if (board[i][0] == 1 && board[i][1] == 2 || board[i][0] == 2
@@ -151,18 +150,17 @@ public class Moves {
 
 			rowScore[i] = GenList(board, 0, i);
 
-			
-
 			if (did) {
 				rowScore[i].add(0, 1);
 			} else
 				rowScore[i].add(0, -1);
 			if (!did1)
 				did1 = did;
-			
+
 			if (did) {
 				numMoved++;
-				if (numMoved == 1 || ListComp(rowScore[lowest],  rowScore[i])!=-1)
+				if (numMoved == 1
+						|| ListComp(rowScore[lowest], rowScore[i]) != -1)
 					lowest = i;
 
 			}
@@ -182,9 +180,9 @@ public class Moves {
 		}
 
 		if (did1) {
-			scores[0] = countScore(board);
-			scores[1] = CountWhite(board);
-			scores[2] = getBig(board);
+			scores[0] = Hscore(board)[0];
+			scores[1] = Hscore(board)[1];
+
 			return (scores);
 		} else
 			return (scores);
@@ -197,7 +195,7 @@ public class Moves {
 		boolean did1 = false;
 		int lowest = 0;
 		int numMoved = 0;
-		int[] scores = { -1, -1, -1 };
+		int[] scores = { -1, -1 };
 		ArrayList<Integer>[] rowScore = new ArrayList[4];
 		for (int i = 0; i < 4; i++) {
 			did = false;
@@ -250,16 +248,17 @@ public class Moves {
 					}
 				}
 			}
-			
-				rowScore[i] = GenList(board,1,i);
+
+			rowScore[i] = GenList(board, 1, i);
 
 			if (did) {
 				rowScore[i].add(0, 1);
-				} else
-					rowScore[i].add(0, -1);
+			} else
+				rowScore[i].add(0, -1);
 			if (did) {
 				numMoved++;
-				if (ListComp(rowScore[lowest],rowScore[i])==1 || numMoved == 1) {
+				if (ListComp(rowScore[lowest], rowScore[i]) == 1
+						|| numMoved == 1) {
 					lowest = i;
 				}
 			}
@@ -280,9 +279,7 @@ public class Moves {
 			// addMove("R");
 		}
 		if (did1) {
-			scores[0] = countScore(board);
-			scores[1] = CountWhite(board);
-			scores[2] = getBig(board);
+			scores=Hscore(board);
 			return (scores);
 		} else
 			return (scores);
@@ -294,7 +291,7 @@ public class Moves {
 		boolean did1 = did;
 		int lowest = 0;
 		int numMoved = 0;
-		int[] scores = { -1, -1, -1 };
+		int[] scores = { -1, -1 };
 		ArrayList<Integer>[] colScore = new ArrayList[4];
 		for (int i = 0; i < 4; i++) {
 			did = false;
@@ -347,21 +344,19 @@ public class Moves {
 				}
 			}
 
-			
-				colScore[i] = GenList(board,2,i);
+			colScore[i] = GenList(board, 2, i);
 
-			if(did)
-				colScore[i].add(0,1);
+			if (did)
+				colScore[i].add(0, 1);
 			else
-				colScore[i].add(0,-1);
-					
-			
+				colScore[i].add(0, -1);
+
 			if (did) {
 				numMoved++;
 
 				if (numMoved == 1)
 					lowest = i;
-				else if (ListComp(colScore[lowest],colScore[i])==1) {
+				else if (ListComp(colScore[lowest], colScore[i]) == 1) {
 					lowest = i;
 				}
 			}
@@ -382,9 +377,7 @@ public class Moves {
 			// addMove("U");
 		}
 		if (did1) {
-			scores[0] = countScore(board);
-			scores[1] = CountWhite(board);
-			scores[2] = getBig(board);
+			scores=Hscore(board);
 			return (scores);
 		} else
 			return (scores);
@@ -396,7 +389,7 @@ public class Moves {
 		boolean did = false;
 		boolean did1 = did;
 		int lowest = 0;
-		int[] scores = { -1, -1, -1 };
+		int[] scores = { -1, -1 };
 		int numMoved = 0;
 		ArrayList<Integer>[] colScore = new ArrayList[4];
 		for (int i = 0; i < 4; i++) {
@@ -450,19 +443,19 @@ public class Moves {
 					}
 				}
 			}
-			
-				colScore[i] =GenList(board,3,i);
 
-				if(did)
-					colScore[i].add(0,1);
-				else
-					colScore[i].add(0,-1);
+			colScore[i] = GenList(board, 3, i);
+
+			if (did)
+				colScore[i].add(0, 1);
+			else
+				colScore[i].add(0, -1);
 			if (did) {
 				numMoved++;
 
 				if (numMoved == 1)
 					lowest = i;
-				else if (ListComp(colScore[lowest],colScore[i])!=-1) {
+				else if (ListComp(colScore[lowest], colScore[i]) != -1) {
 					lowest = i;
 				}
 			}
@@ -483,9 +476,7 @@ public class Moves {
 			// addMove("D");
 		}
 		if (did1) {
-			scores[0] = countScore(board);
-			scores[1] = CountWhite(board);
-			scores[2] = getBig(board);
+			scores=Hscore(board);
 			return (scores);
 		} else
 			return (scores);
@@ -502,6 +493,26 @@ public class Moves {
 
 		}
 		return white;
+	}
+	public static int num12(int board [][] ){
+		int num=0;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				if (board[i][j] == 0)
+					if(board[i][j]==1 || board[i][j]==2)
+						num++;
+			}
+
+		}
+		return num;
+	}
+
+	public static int[] Hscore(int[][] board) {
+		int[] hscore = { -1, -1 };
+		hscore[0] = countScore(board);
+		int multi = hscore[0] / 10 + 1;
+		hscore[1] = CountWhite(board) * (multi)-num12(board)*multi + getBig(board)*multi+board[0][0]*multi*multi+ (multi-multi/10)*board[0][1]+(multi-multi/10)*board[1][0]+(multi-multi/10)*board[1][1]+hscore[0]*multi;
+		return hscore;
 	}
 
 	public static int countScore(int[][] board) {
@@ -595,121 +606,6 @@ public class Moves {
 
 		}
 		return ret;
-	}
-
-	public static int ListComp4(ArrayList<Integer> a, ArrayList<Integer> b,
-			ArrayList<Integer> c, ArrayList<Integer> d, boolean fix) {
-		int start = 0;
-		int low = 0;
-		ArrayList<Integer> lowest = new ArrayList<Integer>();
-
-		if (!fix) {
-			if (a.get(0) == 1)
-				lowest = (ArrayList<Integer>) a.clone();
-			else if (b.get(0) == 1) {
-				lowest = (ArrayList<Integer>) b.clone();
-				low = 1;
-				start = 1;
-			} else if (c.get(0) == 1) {
-				lowest = (ArrayList<Integer>) c.clone();
-				low = 2;
-				start = 2;
-			} else {
-				low = 3;
-			}
-
-			if (start == 0) {
-				for (int i = 1; i < a.size(); i++) {
-					if (a.get(i) > b.get(i)) {
-						lowest = (ArrayList<Integer>) b.clone();
-						low = 1;
-						break;
-					} else if (a.get(i) < b.get(i)) {
-						break;
-
-					}
-				}
-				start++;
-			}
-			if (start > 0) {
-				for (int i = 1; i < 5; i++) {
-					if (lowest.get(i) > c.get(i)) {
-						lowest = (ArrayList<Integer>) c.clone();
-						low = 2;
-						break;
-					} else if (lowest.get(i) < c.get(i)) {
-						break;
-					}
-				}
-				start++;
-			}
-			if (start > 1) {
-				for (int i = 1; i < 5; i++) {
-					if (lowest.get(i) > d.get(i)) {
-						lowest = (ArrayList<Integer>) d.clone();
-						low = 3;
-						break;
-					} else if (lowest.get(i) < d.get(i)) {
-						break;
-					}
-				}
-			}
-		} else {
-			low = 3;
-			if (d.get(0) == 1)
-				lowest = (ArrayList<Integer>) d.clone();
-			else if (c.get(0) == 1) {
-				lowest = (ArrayList<Integer>) c.clone();
-				low = 2;
-				start = 1;
-			} else if (b.get(0) == 1) {
-				lowest = (ArrayList<Integer>) b.clone();
-				low = 1;
-				start = 2;
-			} else {
-				low = 0;
-			}
-
-			if (start == 0) {
-				for (int i = 1; i < a.size(); i++) {
-					if (d.get(i) > c.get(i)) {
-						lowest = (ArrayList<Integer>) c.clone();
-						low = 2;
-						break;
-					} else if (d.get(i) < c.get(i)) {
-						break;
-
-					}
-				}
-				start++;
-			}
-			if (start > 0) {
-				for (int i = 1; i < 5; i++) {
-					if (lowest.get(i) > b.get(i)) {
-						lowest = (ArrayList<Integer>) b.clone();
-						low = 1;
-						break;
-					} else if (lowest.get(i) < b.get(i)) {
-						break;
-					}
-				}
-				start++;
-			}
-			if (start > 1) {
-				for (int i = 1; i < 5; i++) {
-					if (lowest.get(i) > a.get(i)) {
-						lowest = (ArrayList<Integer>) a.clone();
-						low = 0;
-						break;
-					} else if (lowest.get(i) < a.get(i)) {
-						break;
-					}
-				}
-			}
-		}
-
-		return low;
-
 	}
 
 	public static void main(String[] args) {
