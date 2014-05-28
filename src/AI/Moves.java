@@ -29,6 +29,7 @@ public class Moves {
 		LinkedList<Object> Listy = new LinkedList<Object>();
 		int score = 0;
 		int whiteSpace = 0;
+		int big = 0;
 		for (int i = 0; i < movesSize; i++) {
 			isValid[0] = -1;
 			isValid[1] = -1;
@@ -38,6 +39,7 @@ public class Moves {
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
+					big = isValid[2];
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -47,6 +49,7 @@ public class Moves {
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
+					big = isValid[2];
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -56,6 +59,7 @@ public class Moves {
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
+					big = isValid[2];
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -65,6 +69,7 @@ public class Moves {
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					whiteSpace = isValid[1];
+					big = isValid[2];
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -76,6 +81,7 @@ public class Moves {
 	//	GUI.Threes.printListArr(Listy);
 		GUI.Threes.board = board;
 		resetNext();
+		Listy.addFirst(big);
 		Listy.addFirst(whiteSpace);
 		Listy.addFirst(score);
 		return Listy;
@@ -92,7 +98,7 @@ public class Moves {
 		int numMoved = 0;
 		int[] rowScore = new int[4];
 		int lowest = 0;
-		int[] scores = { -1, -1 };
+		int[] scores = { -1, -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			did = false;
 			if (board[i][0] == 1 && board[i][1] == 2 || board[i][0] == 2
@@ -173,6 +179,7 @@ public class Moves {
 		if (did1) {
 			scores[0] = countScore(board);
 			scores[1] = CountWhite(board);
+			scores[2] = getBig(board);
 			return (scores);
 		} else
 			return (scores);
@@ -185,7 +192,7 @@ public class Moves {
 		boolean did1 = false;
 		int lowest = 0;
 		int numMoved = 0;
-		int[] scores = { -1, -1 };
+		int[] scores = { -1, -1, -1 };
 		int[] rowScore = new int[4];
 		for (int i = 0; i < 4; i++) {
 			did = false;
@@ -267,6 +274,7 @@ public class Moves {
 		if (did1) {
 			scores[0] = countScore(board);
 			scores[1] = CountWhite(board);
+			scores[2] = getBig(board);
 			return (scores);
 		} else
 			return (scores);
@@ -278,7 +286,7 @@ public class Moves {
 		boolean did1 = did;
 		int lowest = 0;
 		int numMoved = 0;
-		int[] scores = { -1, -1 };
+		int[] scores = { -1, -1, -1 };
 		int[] colScore = new int[4];
 		// colScore[4]=99999;
 		for (int i = 0; i < 4; i++) {
@@ -364,6 +372,7 @@ public class Moves {
 		if (did1) {
 			scores[0] = countScore(board);
 			scores[1] = CountWhite(board);
+			scores[2] = getBig(board);
 			return (scores);
 		} else
 			return (scores);
@@ -375,7 +384,7 @@ public class Moves {
 		boolean did = false;
 		boolean did1 = did;
 		int lowest = 0;
-		int[] scores = { -1, -1 };
+		int[] scores = { -1, -1, -1 };
 		int numMoved = 0;
 		int[] colScore = new int[4];
 
@@ -462,6 +471,7 @@ public class Moves {
 		if (did1) {
 			scores[0] = countScore(board);
 			scores[1] = CountWhite(board);
+			scores[2] = getBig(board);
 			return (scores);
 		} else
 			return (scores);
@@ -500,6 +510,18 @@ public class Moves {
 			}
 		}
 		return count;
+	}
+	
+	public static int getBig(int[][] board){
+		int max = 0;
+		for(int i = 0; i < 4; i++){
+			for(int j = 0; j < 4; j++){
+				if(board[i][j] > max){
+					max = board[i][j];
+				}
+			}
+		}
+		return max;
 	}
 
 	public static void main(String[] args) {
