@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
 
 public class AI {
 
-	private ArrayDeque<String> AStar(int[][] board,int z) {
+	public static ArrayDeque<String> AStar(int[][] board,int z) {
 		
 
 		Comparator<Node> comparator = new BestMoveComparator();
@@ -94,26 +94,56 @@ public class AI {
 		return moves;
 
 	}
-	private ArrayDeque<String> recur(int[][] board,int z) {
-		int x=50;
+	public static void recur(int[][] board,int z) {
+		int x=z;
+		int[][] tempBoard = new int[4][4];
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				tempBoard[i][j] = board[i][j];
+			}
+		}
+		//GUI.ThreesGUI gui = new GUI.ThreesGUI();
 		ArrayDeque<String> finalmoves = new ArrayDeque<String>();
 		ArrayDeque<String> temp = new ArrayDeque<String>();
+		LinkedList<Object> temp2 = new LinkedList<Object>();
 		String nextMove="";
 		for (int i=0;i<x;i++){
-			temp=AStar(board,z);
+			temp=AStar(tempBoard,z);
 			temp.poll();
 			temp.poll();
 			nextMove=temp.poll();
-			
-
+			if(nextMove.equals("L")){
+				GUI.Threes.Left();
+			}else if(nextMove.equals("R")){
+				GUI.Threes.Right();
+			}else if(nextMove.equals("U")){
+				GUI.Threes.Up();
+			}else if(nextMove.equals("D")){
+				GUI.Threes.Down();
+			}
+			tempBoard=GUI.Threes.board;
+			finalmoves.add(nextMove);
 			
 		}
+		temp2=Moves.doMove(board, finalmoves,true);
+		GUI.Threes.finalBoard();
+		System.out.println("heuristic score was: "+temp2.remove(0));
+
+		System.out.println("Final score was: "+temp2.remove(0));
+		System.out.println("Move string was");
+		while(!temp.isEmpty()){
+			System.out.print(temp.removeLast());
+		}
+				
+
+			
+		
 	}
 	public static void main(String[] args) {
-		AI a = new AI();
+		//AI a = new AI();
 		GUI.Threes.readFile();
 		GUI.Threes.set();
-		ArrayDeque<String> Res = a.AStar(GUI.Threes.board,500);
+		ArrayDeque<String> Res = AStar(GUI.Threes.board,100);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 
@@ -125,6 +155,9 @@ public class AI {
 		while (!Res.isEmpty()) {
 			System.out.print(Res.removeLast());
 		}
+		
+		recur(GUI.Threes.board,100);
 	}
+		
 
 }

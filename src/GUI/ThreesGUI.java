@@ -16,9 +16,12 @@ package GUI;
 
 
 import java.awt.*;
+import java.util.ArrayDeque;
+import java.util.LinkedList;
+
 import javax.swing.*;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+
+import AI.Moves;
 
 /**
  *
@@ -352,14 +355,6 @@ public class ThreesGUI extends javax.swing.JPanel {
  
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
     }//GEN-LAST:event_jPanel1KeyPressed
-
-    private void UpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpActionPerformed
-        if(Threes.Up())
-   
-        refresh();
-        else gg();
-        
-    }//GEN-LAST:event_UpActionPerformed
     private void newGameActionPerformed(java.awt.event.ActionEvent evt){
     	Threes.readFile();
         Threes.set();
@@ -370,26 +365,53 @@ public class ThreesGUI extends javax.swing.JPanel {
         left.setVisible(true);
         right.setVisible(true);
     }
+    private void UpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpActionPerformed
+        if(Threes.Up())
+   
+        refresh();
+        else gg();
+        
+    }//GEN-LAST:event_UpActionPerformed
+    public void up(){
+    	if(Threes.Up())
+    		   
+            refresh();
+            else gg();
+    }
     private void leftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leftActionPerformed
        if( Threes.Left())
        
         refresh();
        else gg();
     }//GEN-LAST:event_leftActionPerformed
-
+    public void left(){
+		 if( Threes.Left())
+		       
+		        refresh();
+		       else gg();
+	}
     private void rightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rightActionPerformed
         if(Threes.Right())
        
         refresh();   
         else gg();
         }//GEN-LAST:event_rightActionPerformed
-
+    public void right(){
+    	if(Threes.Right())
+    	       
+            refresh();   
+            else gg();
+    }
     private void downActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downActionPerformed
         if(Threes.Down())
         refresh(); 
         else gg();
     }//GEN-LAST:event_downActionPerformed
-
+	public void down(){
+		if(Threes.Down())
+	        refresh(); 
+	        else gg();
+	}
     public void addComponentToPane(Container pane) {
         ThreesGUI threes = new ThreesGUI();
         pane.add(threes);
@@ -403,11 +425,55 @@ public class ThreesGUI extends javax.swing.JPanel {
         //Create and set up the content pane.
         ThreesGUI demo = new ThreesGUI();
         demo.addComponentToPane(frame.getContentPane());
-      
+      //  demo.recur(Threes.board,50);
         //Display the window.
         frame.pack();
         frame.setVisible(true);
     }
+    private void recur(int[][] board,int z) {
+		int x=50;
+		int[][] tempBoard = new int[4][4];
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				tempBoard[i][j] = board[i][j];
+			}
+		}
+
+		ArrayDeque<String> finalmoves = new ArrayDeque<String>();
+		ArrayDeque<String> temp = new ArrayDeque<String>();
+		LinkedList<Object> temp2 = new LinkedList<Object>();
+		String nextMove="";
+		for (int i=0;i<x;i++){
+			temp=AI.AI.AStar(tempBoard,z);
+			temp.poll();
+			temp.poll();
+			nextMove=temp.poll();
+			if(nextMove.equals("L")){
+				left();
+			}else if(nextMove.equals("R")){
+				right();
+			}else if(nextMove.equals("U")){
+				up();
+			}else if(nextMove.equals("D")){
+				down();
+			}
+			tempBoard=GUI.Threes.board;
+			finalmoves.add(nextMove);
+		}
+		temp2=Moves.doMove(board, finalmoves,true);
+		GUI.Threes.finalBoard();
+		System.out.println("heuristic score was: "+temp2.remove(0));
+
+		System.out.println("Final score was: "+temp2.remove(1));
+		System.out.println("Move string was");
+		while(!temp.isEmpty()){
+			System.out.print(temp.removeLast());
+		}
+				
+
+			
+		
+	}
     public static void main(String[] args) {
         /* Use an appropriate Look and Feel */
         try {
@@ -430,8 +496,10 @@ public class ThreesGUI extends javax.swing.JPanel {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 createAndShowGUI();
+                
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
