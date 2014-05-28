@@ -7,12 +7,14 @@ public class Node {
 	
 	int whiteSpace;
 	int score;
+	int big;
 	ArrayDeque<String> moves = new ArrayDeque<String>();
 	
-	public Node(int whiteSpace, int score, ArrayDeque<String> moves){
+	public Node(int whiteSpace, int score, int big, ArrayDeque<String> moves){
 		this.whiteSpace = whiteSpace;
 		this.moves = moves;
 		this.score=score;
+		this.big = big;
 	}
 	
 	public void printNode(){
