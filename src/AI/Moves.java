@@ -523,6 +523,23 @@ public class Moves {
 		}
 		return max;
 	}
+	public static ArrayList<Integer> GenList(int [][]board,int type,int rc){
+		ArrayList<Integer> score = new ArrayList<Integer>();
+		int x;
+		int y;
+		for (int i=0;i<4;i++){
+			if(type == 0){
+				 x=i;
+				 y=rc;
+			}else {
+				 x=i;
+			 	y=rc;}
+			score.add(board[x][y]);
+		}
+		
+		
+		return score;
+	}
 
 	public static void main(String[] args) {
 		ArrayDeque<String> ard = new ArrayDeque<String>();
