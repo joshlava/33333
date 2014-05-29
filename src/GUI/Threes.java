@@ -34,9 +34,9 @@ public class Threes {
 
 	public static int[][] board = new int[4][4];
 
-	public static void readFile() {
+	public static void readFile(String inputFile) {
 		try {
-			Scanner sc = new Scanner(new FileReader("exampleinput.txt"));
+			Scanner sc = new Scanner(new FileReader(inputFile));
 			// sc.useDelimiter("\\t");
 			sc.nextLine();
 			sc.nextLine();
