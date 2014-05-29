@@ -126,7 +126,7 @@ public class AI {
 			int k = 0;
 			boolean gameon=true;
 			while (!temp.isEmpty() && k<5&&gameon) {
-				nextMove = temp.poll();
+				nextMove = temp.pollLast();
 
 				if (nextMove.equals("L")) {
 					gameon=GUI.Threes.Left();
@@ -180,7 +180,7 @@ public class AI {
 		GUI.Threes.set();
 		Moves.storeNext();
 		Moves.resetNext();
-		ArrayDeque<String> Res = AStar(GUI.Threes.board, 3);
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 25);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 
@@ -189,13 +189,13 @@ public class AI {
 		//GUI.Threes.finalBoard();
 
 		while (!Res.isEmpty()) {
-			System.out.print(Res.remove());
+			System.out.print(Res.removeLast());
 		}
 		System.out.println();
-		/*GUI.Threes.readFile();
+		GUI.Threes.readFile();
 		GUI.Threes.set();
 		Moves.resetNext();
-		recur(GUI.Threes.board, 10);*/
+		recur(GUI.Threes.board, 10);
 	}
 
 }
