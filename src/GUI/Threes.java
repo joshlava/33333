@@ -44,19 +44,17 @@ public class Threes {
 
 			while (sc.hasNext() && z < 16) {
 				String temp = sc.next();
-				System.out.println(temp);
-				if(Pattern.matches("\\D|\\d\\D\\d", temp)){
+				if(Pattern.matches(".*\\D.*", temp)){
 					throw new Exception("Invalid input board, cannot continue.");
 				} else 
 					nums.add(temp);
 				z++;
 
 			}
-			sc.nextLine();
-			sc.nextLine();
 			while (sc.hasNext()) {
-
-				next.add(sc.next());
+				String temp = sc.next();
+				if(!Pattern.matches("\\D*|\\d*\\D\\d*", temp))
+					next.add(temp);
 				z++;
 
 			}
@@ -158,17 +156,16 @@ public class Threes {
 
 	public static void addMove(String move) {
 		moves += move;
+		moves += ",";
 	}
-
-	public static void finalBoard() {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				System.out.print(board[i][j] + " ");
-			}
-			System.out.println("");
+public static void finalBoard(){
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			System.out.print(board[i][j] + " ");
 		}
+		System.out.println("");
 	}
-
+}
 	public static void printArr(ArrayDeque moves) {
 		System.out.println();
 		for (int i = 0; i < 4; i++) {
@@ -314,15 +311,17 @@ public class Threes {
 				rowScore[i].add(0, -1);
 			if (!did1)
 				did1 = did;
-			if (did) {
-				numMoved++;
-				if (numMoved == 1
-						|| AI.Moves.ListComp(rowScore[lowest], rowScore[i]) != -1)
-					lowest = i;
-
-			}
+			  if (did) {
+				  numMoved++; 
+				  if(numMoved==1||AI.Moves.ListComp(rowScore[lowest] , rowScore[i])!=-1)
+				  lowest=i;
+			  
+			  }
+			 
+			
 
 		}
+		
 
 		if (did1) {
 			setNext(lowest, 3);
@@ -389,16 +388,15 @@ public class Threes {
 					}
 				}
 			}
-			rowScore[i] = AI.Moves.GenList(board, 1, i);
+			rowScore[i] = AI.Moves.GenList(board,1,i);
 
 			if (did) {
 				rowScore[i].add(0, 1);
-			} else
-				rowScore[i].add(0, -1);
+				} else
+					rowScore[i].add(0, -1);
 			if (did) {
 				numMoved++;
-				if (AI.Moves.ListComp(rowScore[lowest], rowScore[i]) == 1
-						|| numMoved == 1) {
+				if (AI.Moves.ListComp(rowScore[lowest],rowScore[i])==1 || numMoved == 1) {
 					lowest = i;
 				}
 			}
@@ -406,7 +404,7 @@ public class Threes {
 				did1 = did;
 
 		}
-
+		
 		if (did1) {
 			setNext(lowest, 0);
 			addMove("R");
@@ -473,18 +471,18 @@ public class Threes {
 				}
 			}
 
-			colScore[i] = AI.Moves.GenList(board, 2, i);
-			if (did)
-				colScore[i].add(0, 1);
+			colScore[i] = AI.Moves.GenList(board,2,i);
+			if(did)
+				colScore[i].add(0,1);
 			else
-				colScore[i].add(0, -1);
-
+				colScore[i].add(0,-1);
+					
 			if (did) {
 				numMoved++;
 
 				if (numMoved == 1)
 					lowest = i;
-				else if (AI.Moves.ListComp(colScore[lowest], colScore[i]) == 1) {
+				else if (AI.Moves.ListComp(colScore[lowest],colScore[i])==1) {
 					lowest = i;
 				}
 			}
@@ -559,21 +557,22 @@ public class Threes {
 					}
 				}
 			}
-			colScore[i] = AI.Moves.GenList(board, 3, i);
-
-			if (did)
-				colScore[i].add(0, 1);
+			colScore[i] =AI.Moves.GenList(board,3,i);
+			
+			
+			if(did)
+				colScore[i].add(0,1);
 			else
-				colScore[i].add(0, -1);
-			if (did) {
-				numMoved++;
+				colScore[i].add(0,-1);
+		if (did) {
+			numMoved++;
 
-				if (numMoved == 1)
-					lowest = i;
-				else if (AI.Moves.ListComp(colScore[lowest], colScore[i]) != -1) {
-					lowest = i;
-				}
+			if (numMoved == 1)
+				lowest = i;
+			else if (AI.Moves.ListComp(colScore[lowest],colScore[i])!=-1) {
+				lowest = i;
 			}
+		}
 			if (!did1)
 				did1 = did;
 
