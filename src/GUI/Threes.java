@@ -22,6 +22,7 @@ import java.util.Scanner;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 /*
  * @author joshlaverghetta
@@ -42,8 +43,12 @@ public class Threes {
 			int z = 0;
 
 			while (sc.hasNext() && z < 16) {
-
-				nums.add(sc.next());
+				String temp = sc.next();
+				System.out.println(temp);
+				if(Pattern.matches("\\D|\\d\\D\\d", temp)){
+					throw new Exception("Invalid input board, cannot continue.");
+				} else 
+					nums.add(temp);
 				z++;
 
 			}
@@ -57,6 +62,9 @@ public class Threes {
 			}
 
 		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
