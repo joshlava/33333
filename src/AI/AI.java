@@ -176,15 +176,12 @@ public class AI {
 
 	public static void main(String[] args) {
 		// AI a = new AI();
-		GUI.Threes.readFile();
-		GUI.Threes.set();
-		Moves.resetNext();
-		recur(GUI.Threes.board, 10);
+		
 		GUI.Threes.readFile();
 		GUI.Threes.set();
 		Moves.storeNext();
 		Moves.resetNext();
-		ArrayDeque<String> Res = AStar(GUI.Threes.board, 1000);
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 100);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 
@@ -196,6 +193,10 @@ public class AI {
 			System.out.print(Res.remove());
 		}
 		System.out.println();
+		GUI.Threes.readFile();
+		GUI.Threes.set();
+		Moves.resetNext();
+		recur(GUI.Threes.board, 10);
 	}
 
 }

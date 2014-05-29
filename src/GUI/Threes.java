@@ -47,6 +47,8 @@ public class Threes {
 				z++;
 
 			}
+			sc.nextLine();
+			sc.nextLine();
 			while (sc.hasNext()) {
 
 				next.add(sc.next());
