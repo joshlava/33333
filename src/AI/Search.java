@@ -19,20 +19,22 @@ public class Search {
 		Node first = new Node(newGame);
 		OpenList.add(first);
 		numNodes++;
-
+		int z= GUI.Threes.sizeNext();
 		while (!OpenList.isEmpty()) {
 			Node current = OpenList.poll();
-
-			if (current.getBoard().getGame()) {
+		
+			if (current.getBoard().getGame()||numNodes>z*4) {
 				System.out.println("game over after "+numNodes+" nodes");
 				System.out.println("Score was "+current.board.score);
-				System.out.println("Hscore was "+ current.board.hScore);
+				System.out.println("Hscore was "+ current.board.getHScore());
 				current.board.printBoard();
 				return current.getMoves();
 			}
+
 			ListIterator nekMoves = current.getNextMoves().listIterator();
 
 			while (nekMoves.hasNext()) {
+	
 				Board nek = (Board) nekMoves.next();
 				ArrayList<String> upMoves = (ArrayList<String>) current.moves
 						.clone();
@@ -48,11 +50,14 @@ public class Search {
 	
 	
 	public static void main(String [] args){
-		GUI.Threes.readFile("exampleinput.txt");
+		String input = "exampleinput.txt";
+		GUI.Threes.readFile(input);
 		GUI.Threes.set();
 		
 		ArrayList<String> test=almostAstar(GUI.Threes.board);
-		
+		while(!test.isEmpty()){
+			System.out.print(test.remove(test.size()-1));
+		}System.out.println();
 	}
 
 }

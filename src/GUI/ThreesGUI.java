@@ -37,14 +37,14 @@ public class ThreesGUI extends javax.swing.JPanel {
      */
     public ThreesGUI() {
         initComponents();
-    	String input = null;
-		try{
+    	String input = "exampleinput.txt";
+		/*try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("Please enter an input filename location: ");
 			input = br.readLine();
 		}catch(IOException io){
 			io.printStackTrace();
-		}
+		}*/
         Threes.readFile(input);
         Threes.set();
         refresh();   

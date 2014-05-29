@@ -642,15 +642,20 @@ public class Moves {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
 		int rat = hscore[0] / 10 + 1;
-		int multi = rat / 3;
+		int multi = rat ;
 
-		double ran = Math.random() * 1000;
-		hscore[1] = countScore(board) * (rat) - num12(board) * rat
+	//	double ran = Math.random() * 1000;
+		hscore[1] = CountWhite(board) * (rat) - num12(board) * rat
 				+ getBig(board) * rat /*+ board[0][0] * multi
 				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
 				* board[1][0] + (multi - multi / 10) * board[1][1]*/ + hscore[0]
 				* rat // +(int)ran
 		;
+		for (int i=0;i<4;i++){
+			for (int j=0;j<4;j++){
+				hscore[1]+=board[i][j]*multi/(1+i+j);
+			}
+		}
 		return hscore;
 	}
 
@@ -764,45 +769,4 @@ public class Moves {
 		return ret;
 	}
 
-	public static void main(String[] args) {
-		/*
-		 * ArrayDeque<String> ard = new ArrayDeque<String>(); ard.add("L");
-		 * ard.add("L"); ard.add("R"); ard.add("U"); ard.add("D"); ard.add("U");
-		 * ard.add("R"); ard.add("L");
-		 */
-		
-		GUI.Threes.set();
-
-		ArrayList<Integer> test = GenList(GUI.Threes.board, 3, 3);
-		while (!test.isEmpty()) {
-			System.out.println("contents of test " + test.remove(0));
-		}
-		/*
-		 * int[][] testBoard =new int[4][4]; for (int i=0;i<4;i++){ for(int
-		 * j=0;j<4;j++){ testBoard[i][j]=3; }
-		 * 
-		 * } int testScore=0; for (int i=0;i<4;i++){ for(int j=0;j<4;j++){
-		 * testScore+=testBoard[i][j]; }
-		 * 
-		 * } System.out.println("moves executed:");
-		 * System.out.println("Test score score: " +testScore);
-		 * System.out.println("white space of initial board is: " +
-		 * CountWhite(GUI.Threes.board));
-		 * System.out.println("The initial board is:"); //GUI.Threes.printArr();
-		 * LinkedList<Object> dog = doMove(testBoard, ard);
-		 * 
-		 * System.out.println("white space of final board is: " +
-		 * CountWhite(GUI.Threes.board));
-		 * System.out.println("The final board is"); //GUI.Threes.printArr();
-		 * System.out.println("score is: " + dog.get(0));
-		 * System.out.println("Amount of WhiteSpace is: " + dog.get(1));
-		 * testScore=0; for (int i=0;i<4;i++){ for(int j=0;j<4;j++){
-		 * testScore+=testBoard[i][j]; }
-		 * 
-		 * } System.out.println("moves executed:");
-		 * System.out.println("Test score score: " +testScore); int i = 2; while
-		 * (i < dog.size()) { System.out.println(dog.get(i)); i++; }
-		 */
-
-	}
 }

@@ -94,7 +94,7 @@ public class betterMoves {
 			}
 			// addMove("D");
 		}
-		Board temp=new Board(board,did1,"D");
+		Board temp=new Board(board,!did1,"D");
 		return(temp);
 
 	}
@@ -190,7 +190,7 @@ public class betterMoves {
 
 		}
 
-		Board temp=new Board(board,did1,"L");
+		Board temp=new Board(board,!did1,"L");
 		return temp;
 
 	}
@@ -282,7 +282,7 @@ public class betterMoves {
 			}
 			// addMove("R");
 		}
-		Board temp=new Board(board,did1,"R");
+		Board temp=new Board(board,!did1,"R");
 		return temp;
 
 	}
@@ -376,7 +376,7 @@ public class betterMoves {
 			}
 			// addMove("U");
 		}
-		Board temp=new Board(board,did1,"U");
+		Board temp=new Board(board,!did1,"U");
 		return temp;
 
 	}

@@ -18,9 +18,9 @@ public class BestMoveComparator implements Comparator<Node> {
 	 */
 	public int compare(Node o1, Node o2) {
 
-		if (o1.hScore > o2.hScore) {
+		if (o1.board.getHScore() > o2.board.getHScore()) {
 			return -1;
-		} else if (o1.hScore == o2.hScore) {
+		} else if (o1.board.getHScore() == o2.board.getHScore()) {
 
 			return 0;
 

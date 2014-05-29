@@ -9,21 +9,26 @@ public class Board {
 	public Board(int [][] board,boolean gameOver){
 		this.board=board;
 		this.gameOver=gameOver;
-		hScore=Moves.Hscore(board)[0];
-		score=Moves.Hscore(board)[1];
+		hScore=Moves.Hscore(board)[1];
+		score=Moves.Hscore(board)[0];
 	}
 	public Board(int [][] board,boolean gameOver,String newMove){
 		this.board=board;
 		this.gameOver=gameOver;
-		hScore=Moves.Hscore(board)[0];
-		score=Moves.Hscore(board)[1];
+		//if(!gameOver){
+		hScore=Moves.Hscore(board)[1];
+		score=Moves.Hscore(board)[0];//}
+		/*else{
+			hScore=1;
+			score=Moves.Hscore(board)[0];
+		}*/
 		this.newMove=newMove;
 	}
 	public Board(int [][] board){
 		this.board=board;
 		gameOver=false;
-		hScore=Moves.Hscore(board)[0];
-		score=Moves.Hscore(board)[1];
+		hScore=Moves.Hscore(board)[1];
+		score=Moves.Hscore(board)[0];
 	}
 	
 	public void setBoard(int [][]board){
@@ -63,7 +68,7 @@ public class Board {
 		
 		for (int i=0;i<4;i++){
 			for(int j=0;j<4;j++){
-				System.out.print(board[i][j]);
+				System.out.print(board[i][j]+" ");
 			}System.out.println();
 		}System.out.println();
 	}

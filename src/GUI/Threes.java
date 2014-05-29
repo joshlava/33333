@@ -96,6 +96,9 @@ public class Threes {
 	public static String getNext(int n){
 		return next.get(n);
 	}
+	public static int sizeNext(){
+		return next.size();
+	}
 
 	public static String setBoard(int r, int c) {
 		String Text = "";
