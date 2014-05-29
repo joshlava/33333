@@ -19,14 +19,20 @@ public class Moves {
 
 	/*
 	 * A function to actually perform the moves on the board
+	 * 
 	 * @param board the board to be changed
+	 * 
 	 * @param moves the list of moves to be performed on board
-	 * @param print a variable to determine whether we want debugging print statements or not
-	 * @return a linked list containing the moves we actually performed on the board
+	 * 
+	 * @param print a variable to determine whether we want debugging print
+	 * statements or not
+	 * 
+	 * @return a linked list containing the moves we actually performed on the
+	 * board
 	 */
 	public static LinkedList<Object> doMove(int[][] board,
 			ArrayDeque<String> moves, boolean print) {
-		boolean isFail=false;
+		boolean isFail = false;
 		if (print) {
 			Moves.finalNext();
 		}
@@ -56,10 +62,10 @@ public class Moves {
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					hScore = isValid[1];
-									
 
 					Listy.add(tempMoves.pollLast());
-				}else isFail=true;
+				} else
+					isFail = true;
 			} else if (tempMoves.peekLast().equals("R")) {
 				isValid = Right(tempBoard);
 
@@ -68,7 +74,8 @@ public class Moves {
 					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
-				}else isFail=true;
+				} else
+					isFail = true;
 			} else if (tempMoves.peekLast().equals("U")) {
 				isValid = Up(tempBoard);
 
@@ -77,7 +84,8 @@ public class Moves {
 					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
-				}else isFail=true;
+				} else
+					isFail = true;
 			} else if (tempMoves.peekLast().equals("D")) {
 				isValid = Down(tempBoard);
 
@@ -86,23 +94,40 @@ public class Moves {
 					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
-				}else isFail=true;
+				} else
+					isFail = true;
 			} else {
 				tempMoves.remove();
 			}
+			
 		}
 
 		resetNext();
-	
-		if(isFail){
+
+		if (isFail) {
 			Listy.addFirst(-1);
 			Listy.addFirst(-1);
-		}else{
+		} else {
+			/*for (int k=0;k<4;k++){
+				for(int j=0;j<4;j++){
+					System.out.print(tempBoard[k][j]+" ");
+				}System.out.println();
+			}System.out.println("Moves ");
+			int loop= Listy.size();
+			for(int i=0;i<loop;i++){
+				System.out.print(Listy.get(i));
+			}System.out.println();*/
 			Listy.addFirst(score);
 			Listy.addFirst(hScore);
+			
 		}
-		if (print)
-			GUI.Threes.board = tempBoard;
+		if (print){
+			for (int i = 0; i < 4; i++) {
+				for (int j = 0; j < 4; j++) {
+					System.out.print(tempBoard[i][j] + " ");
+				}System.out.println();
+			}
+		}
 		return Listy;
 	}
 
@@ -110,7 +135,7 @@ public class Moves {
 	 * 
 	 */
 	public static void resetNext() {
-		next = new LinkedList<String>(GUI.Threes.next);
+		next = new LinkedList<String>(nextTemp);
 	}
 
 	/*
@@ -136,8 +161,11 @@ public class Moves {
 
 	/*
 	 * A function to carry out a move left on the board
+	 * 
 	 * @param board the board to be manipulated
-	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 * 
+	 * @return an array containing the heuristic score and the score of the
+	 * board after the move has been performed.
 	 */
 	public static int[] Left(int[][] board) {
 
@@ -230,23 +258,26 @@ public class Moves {
 		}
 
 		if (did1) {
-			int [] temp = Hscore(board);  
-			scores[0]=temp[0];
-			scores[1]=temp[1];
+			int[] temp = Hscore(board);
+			scores[0] = temp[0];
+			scores[1] = temp[1];
 			return (scores);
 
-		} else{
-			scores[0]=-1;
-			scores[1]=-1;
+		} else {
+			scores[0] = -1;
+			scores[1] = -1;
 		}
-			return (scores);
+		return (scores);
 
 	}
 
 	/*
 	 * A function to carry out a move right on the board
+	 * 
 	 * @param board the board to be manipulated
-	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 * 
+	 * @return an array containing the heuristic score and the score of the
+	 * board after the move has been performed.
 	 */
 	public static int[] Right(int[][] board) {
 		int k = 3;
@@ -338,9 +369,9 @@ public class Moves {
 			// addMove("R");
 		}
 		if (did1) {
-			int [] temp = Hscore(board);  
-			scores[0]=temp[0];
-			scores[1]=temp[1];
+			int[] temp = Hscore(board);
+			scores[0] = temp[0];
+			scores[1] = temp[1];
 			return (scores);
 		} else
 			return (scores);
@@ -349,10 +380,13 @@ public class Moves {
 
 	/*
 	 * A function to carry out a move up on the board
+	 * 
 	 * @param board the board to be manipulated
-	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 * 
+	 * @return an array containing the heuristic score and the score of the
+	 * board after the move has been performed.
 	 */
-	
+
 	public static int[] Up(int[][] board) {
 		boolean did = false;
 		boolean did1 = did;
@@ -444,9 +478,9 @@ public class Moves {
 			// addMove("U");
 		}
 		if (did1) {
-			int [] temp = Hscore(board);  
-			scores[0]=temp[0];
-			scores[1]=temp[1];
+			int[] temp = Hscore(board);
+			scores[0] = temp[0];
+			scores[1] = temp[1];
 			return (scores);
 		} else
 			return (scores);
@@ -455,8 +489,11 @@ public class Moves {
 
 	/*
 	 * A function to carry out a move down on the board
+	 * 
 	 * @param board the board to be manipulated
-	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 * 
+	 * @return an array containing the heuristic score and the score of the
+	 * board after the move has been performed.
 	 */
 	public static int[] Down(int[][] board) {
 		int k = 3;
@@ -550,9 +587,9 @@ public class Moves {
 			// addMove("D");
 		}
 		if (did1) {
-			int [] temp = Hscore(board);  
-			scores[0]=temp[0];
-			scores[1]=temp[1];
+			int[] temp = Hscore(board);
+			scores[0] = temp[0];
+			scores[1] = temp[1];
 			return (scores);
 		} else
 			return (scores);
@@ -561,7 +598,9 @@ public class Moves {
 
 	/*
 	 * A function to count the number of white(empty) tiles on a given board
+	 * 
 	 * @param board the board to be counted
+	 * 
 	 * @return an int containing the number of counted empty tiles
 	 */
 	public static int CountWhite(int board[][]) {
@@ -594,28 +633,32 @@ public class Moves {
 
 	/*
 	 * A function to calculate the heuristic score of a given board
+	 * 
 	 * @param board the board to be analysed
+	 * 
 	 * @return an array of integers containing the heuristic score
 	 */
 	public static int[] Hscore(int[][] board) {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
-		int rat=hscore[0] / 10 + 1;
-		int multi = rat/5;
-	
-		double ran = Math.random()*1000;
-		hscore[1] =countScore(board) * (rat) - num12(board) * rat
-				+ getBig(board) * rat+ board[0][0] * multi 
+		int rat = hscore[0] / 10 + 1;
+		int multi = rat / 5;
+
+		double ran = Math.random() * 1000;
+		hscore[1] = countScore(board) * (rat) - num12(board) * rat
+				+ getBig(board) * rat + board[0][0] * multi
 				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
 				* board[1][0] + (multi - multi / 10) * board[1][1] + hscore[0]
-				* rat //+(int)ran
-				;
+				* rat // +(int)ran
+		;
 		return hscore;
 	}
 
 	/*
 	 * A function to calculate the score of a given board
+	 * 
 	 * @param board the board to be analysed
+	 * 
 	 * @return an int containing the score
 	 */
 	public static int countScore(int[][] board) {
@@ -642,7 +685,9 @@ public class Moves {
 
 	/*
 	 * A function to calculate the biggest tile in a board
+	 * 
 	 * @param board the board to be analysed
+	 * 
 	 * @return an int containing the biggest tile on the board
 	 */
 	public static int getBig(int[][] board) {

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 /*
- * Josh La Verghetta 20762905
+ * Nicolas La Verghetta 20762905
  * Andrew Edwards 20937641
  * A class to hold the logic for our "Artificial Intelligence" agent 
  */
@@ -25,8 +25,6 @@ public class AI {
 		Comparator<Node> comparator = new BestMoveComparator();
 		PriorityQueue<Node> openList = new PriorityQueue<Node>(z, comparator);
 		PriorityQueue<Node> closedList = new PriorityQueue<Node>(z, comparator);
-		GUI.Threes.readFile();
-		GUI.Threes.set();
 		ArrayDeque<String> initialMoves = new ArrayDeque<String>();
 		Node initial = new Node(Moves.countScore(GUI.Threes.board),
 				Moves.Hscore(GUI.Threes.board)[1], initialMoves);
@@ -37,7 +35,6 @@ public class AI {
 		int HScore = 0;
 		int Score = 0;
 
-		int goal = 10;
 		int i = 0;
 		while (!openList.isEmpty() && i < z) {
 			Node node = openList.remove();
@@ -83,7 +80,10 @@ public class AI {
 			node.moves.removeLast();
 
 			i++;
+			
 		}
+		Node bestOpen = openList.remove();
+		closedList.add(bestOpen);
 		Node node = closedList.remove();
 		Score = node.score;
 		HScore = node.hScore;
@@ -180,22 +180,22 @@ public class AI {
 		GUI.Threes.set();
 		Moves.storeNext();
 		Moves.resetNext();
-		ArrayDeque<String> Res = AStar(GUI.Threes.board, 100);
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 3);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 
 		Moves.doMove(GUI.Threes.board, Res, true);
 		System.out.println("Final board is");
-		GUI.Threes.finalBoard();
+		//GUI.Threes.finalBoard();
 
 		while (!Res.isEmpty()) {
 			System.out.print(Res.remove());
 		}
 		System.out.println();
-		GUI.Threes.readFile();
+		/*GUI.Threes.readFile();
 		GUI.Threes.set();
 		Moves.resetNext();
-		recur(GUI.Threes.board, 10);
+		recur(GUI.Threes.board, 10);*/
 	}
 
 }
