@@ -48,30 +48,38 @@ public class AI {
 
 			node.moves.add("D");
 			temp = Moves.doMove(board, node.moves, false);
-			Node down = new Node((Integer) temp.get(0), (Integer) temp.get(1),
-					node.moves.clone());
-			openList.offer(down);
+				if((int)temp.peek()!=-1){
+				Node down = new Node((Integer) temp.get(0), (Integer) temp.get(1),
+						node.moves.clone());
+				openList.offer(down);
+				}
 			node.moves.removeLast();
 
 			node.moves.add("U");
 			temp = Moves.doMove(board, node.moves, false);
+			if((int)temp.peek()!=-1){
 			Node up = new Node((Integer) temp.get(0), (Integer) temp.get(1),
 					node.moves.clone());
 			openList.offer(up);
+			}
 			node.moves.removeLast();
 			node.moves.add("L");
 			temp = Moves.doMove(board, node.moves, false);
+			if((int)temp.peek()!=-1){
 			int tempint = (Integer) temp.get(0);
 			Node left = new Node(tempint, (Integer) temp.get(1),
 					node.moves.clone());
 			openList.offer(left);
+			}
 			node.moves.removeLast();
 
 			node.moves.add("R");
 			temp = Moves.doMove(board, node.moves, false);
+			if((int)temp.peek()!=-1){
 			Node right = new Node((Integer) temp.get(0), (Integer) temp.get(1),
 					node.moves.clone());
 			openList.offer(right);
+			}
 			node.moves.removeLast();
 
 			i++;
@@ -171,12 +179,12 @@ public class AI {
 		GUI.Threes.readFile();
 		GUI.Threes.set();
 		Moves.resetNext();
-		recur(GUI.Threes.board, 100);
+		recur(GUI.Threes.board, 10);
 		GUI.Threes.readFile();
 		GUI.Threes.set();
 		Moves.storeNext();
 		Moves.resetNext();
-		ArrayDeque<String> Res = AStar(GUI.Threes.board, 20);
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 1000);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 

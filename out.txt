@@ -1,3 +1,3 @@
 
-Your score was: 177
-L,L,L,U,L,L,R,R,R,U,R,L,L,R,
+Your score was: 131
+U,L,U,L,L,L,U,R,L,R,U,L,U,L,D,U,L,R,

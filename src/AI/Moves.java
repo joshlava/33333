@@ -26,7 +26,7 @@ public class Moves {
 	 */
 	public static LinkedList<Object> doMove(int[][] board,
 			ArrayDeque<String> moves, boolean print) {
-
+		boolean isFail=false;
 		if (print) {
 			Moves.finalNext();
 		}
@@ -59,7 +59,7 @@ public class Moves {
 									
 
 					Listy.add(tempMoves.pollLast());
-				}
+				}else isFail=true;
 			} else if (tempMoves.peekLast().equals("R")) {
 				isValid = Right(tempBoard);
 
@@ -68,7 +68,7 @@ public class Moves {
 					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
-				}
+				}else isFail=true;
 			} else if (tempMoves.peekLast().equals("U")) {
 				isValid = Up(tempBoard);
 
@@ -77,7 +77,7 @@ public class Moves {
 					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
-				}
+				}else isFail=true;
 			} else if (tempMoves.peekLast().equals("D")) {
 				isValid = Down(tempBoard);
 
@@ -86,7 +86,7 @@ public class Moves {
 					hScore = isValid[1];
 
 					Listy.add(tempMoves.pollLast());
-				}
+				}else isFail=true;
 			} else {
 				tempMoves.remove();
 			}
@@ -95,6 +95,13 @@ public class Moves {
 		resetNext();
 		Listy.addFirst(score);
 		Listy.addFirst(hScore);
+		if(isFail){
+			Listy.addFirst(-1);
+			Listy.addFirst(-1);
+		}else{
+			Listy.addFirst(score);
+			Listy.addFirst(hScore);
+		}
 		if (print)
 			GUI.Threes.board = tempBoard;
 		return Listy;
