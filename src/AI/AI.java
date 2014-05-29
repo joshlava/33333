@@ -19,7 +19,6 @@ public class AI {
 		GUI.Threes.readFile();
 		GUI.Threes.set();
 		ArrayDeque<String> initialMoves = new ArrayDeque<String>();
-		// initialMoves.add(" ");
 		Node initial = new Node(Moves.countScore(GUI.Threes.board),
 				Moves.Hscore(GUI.Threes.board)[1], initialMoves);
 		openList.add(initial); // add initial board to openList
@@ -34,20 +33,11 @@ public class AI {
 			Node node = openList.remove();
 
 			closedList.add(node);
-			/*
-			 * System.out.println("/=/=/=/=/==/=/=/=/=/=/==");
-			 * System.out.print("Size of openList ");
-			 * System.out.println(openList.size());
-			 * System.out.print("The whitespace of best node is: ");
-			 * System.out.println(node.whiteSpace);
-			 */
-
+		
 			moves = node.moves;
-			// node.printNode();
 			Score = node.score;
 			LinkedList<Object> temp = new LinkedList<Object>();
 
-			// while(whiteSpace < goal && openList.size() < 100){
 
 			node.moves.add("L");
 			temp = Moves.doMove(board, node.moves, false);
@@ -112,7 +102,7 @@ public class AI {
 		for (int i = 0; i < x; i++) {
 	
 
-			temp = new ArrayDeque<String>(AStar(tempBoard, z));
+			temp = new ArrayDeque<String>(AStar(tempBoard, 500));
 
 			temp.poll();
 			temp.poll();
@@ -136,6 +126,12 @@ public class AI {
 			Moves.popNext();
 
 		}
+		System.out.println("contents of finalmoves");
+		int movesize=finalmoves.size();
+		ArrayDeque<String> printemp=new ArrayDeque<String>(finalmoves);
+		for (int i=0;i<movesize;i++){
+			System.out.println(printemp.remove());
+		}
 		temp2 = Moves.doMove(board, finalmoves, true);
 		//GUI.Threes.finalBoard();
 		System.out.println("heuristic score was: " + temp2.remove(0));
@@ -155,12 +151,12 @@ public class AI {
 		GUI.Threes.readFile();
 		GUI.Threes.set();
 		
-		recur(GUI.Threes.board, 100);
+		recur(GUI.Threes.board, 50);
 		GUI.Threes.readFile();
 		GUI.Threes.set();
 		Moves.storeNext();
 
-		ArrayDeque<String> Res = AStar(GUI.Threes.board, 500);
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 100);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 

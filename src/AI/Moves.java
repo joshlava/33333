@@ -1,4 +1,5 @@
 package AI;
+
 //****************************************
 //need to fix input file so it ignores anything other than LRUD
 import java.util.ArrayDeque;
@@ -11,10 +12,10 @@ public class Moves {
 	private static LinkedList<String> nextTemp = new LinkedList<String>();
 
 	public static LinkedList<Object> doMove(int[][] board,
-			ArrayDeque<String> moves,boolean print) {
+			ArrayDeque<String> moves, boolean print) {
 
 		resetNext();
-		if(print){
+		if (print) {
 			Moves.finalNext();
 		}
 		int[][] tempBoard = new int[4][4];
@@ -33,7 +34,7 @@ public class Moves {
 		LinkedList<Object> Listy = new LinkedList<Object>();
 		int score = 0;
 		int hScore = 0;
-	
+
 		for (int i = 0; i < movesSize; i++) {
 			isValid[0] = -1;
 			isValid[1] = -1;
@@ -78,11 +79,11 @@ public class Moves {
 				tempMoves.remove();
 			}
 		}
-		
+
 		resetNext();
 		Listy.addFirst(score);
 		Listy.addFirst(hScore);
-		if(print)
+		if (print)
 			GUI.Threes.board = tempBoard;
 		return Listy;
 	}
@@ -90,15 +91,19 @@ public class Moves {
 	public static void resetNext() {
 		next = new LinkedList<String>(GUI.Threes.next);
 	}
-	public static void popNext(){
+
+	public static void popNext() {
 		GUI.Threes.next.poll();
 	}
-	public static void storeNext(){
-		nextTemp=new LinkedList<String>(GUI.Threes.next);
+
+	public static void storeNext() {
+		nextTemp = new LinkedList<String>(GUI.Threes.next);
 	}
-	public static void finalNext(){
-		next=new LinkedList<String>(nextTemp);
+
+	public static void finalNext() {
+		next = new LinkedList<String>(nextTemp);
 	}
+
 	public static int[] Left(int[][] board) {
 
 		boolean did = false;
@@ -289,7 +294,7 @@ public class Moves {
 			// addMove("R");
 		}
 		if (did1) {
-			scores=Hscore(board);
+			scores = Hscore(board);
 			return (scores);
 		} else
 			return (scores);
@@ -387,7 +392,7 @@ public class Moves {
 			// addMove("U");
 		}
 		if (did1) {
-			scores=Hscore(board);
+			scores = Hscore(board);
 			return (scores);
 		} else
 			return (scores);
@@ -486,7 +491,7 @@ public class Moves {
 			// addMove("D");
 		}
 		if (did1) {
-			scores=Hscore(board);
+			scores = Hscore(board);
 			return (scores);
 		} else
 			return (scores);
@@ -504,12 +509,13 @@ public class Moves {
 		}
 		return white;
 	}
-	public static int num12(int board [][] ){
-		int num=0;
+
+	public static int num12(int board[][]) {
+		int num = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (board[i][j] == 0)
-					if(board[i][j]==1 || board[i][j]==2)
+					if (board[i][j] == 1 || board[i][j] == 2)
 						num++;
 			}
 
@@ -521,7 +527,11 @@ public class Moves {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
 		int multi = hscore[0] / 10 + 1;
-		hscore[1] = CountWhite(board) * (multi)-num12(board)*multi + getBig(board)*multi+board[0][0]*multi*multi+ (multi-multi/10)*board[0][1]+(multi-multi/10)*board[1][0]+(multi-multi/10)*board[1][1]+hscore[0]*multi;
+		hscore[1] = CountWhite(board) * (multi) - num12(board) * multi
+				+ getBig(board) * multi + board[0][0] * multi * multi
+				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
+				* board[1][0] + (multi - multi / 10) * board[1][1] + hscore[0]
+				* multi;
 		return hscore;
 	}
 
