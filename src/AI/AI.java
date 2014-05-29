@@ -5,12 +5,21 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
-//Why doesnt it move to DDDDLR?
-//and how is DDDDL still at the front of the list if its already removed. 
-//because it will remove it, then it will check the best and re make the same node over and over
+
+/*
+ * Josh La Verghetta 20762905
+ * Andrew Edwards 20937641
+ * A class to hold the logic for our "Artificial Intelligence" agent 
+ */
 
 public class AI {
 
+	/*
+	 * A function that generates a list of the series of moves to play that are considered the best by our heuristic function.
+	 * @param board the board to be used to manipulate
+	 * @param z the depth for the algorithm to go to.
+	 * @return an ArrayDeque containing the series of recommended moves
+	 */
 	public static ArrayDeque<String> AStar(int[][] board, int z) {
 
 		Comparator<Node> comparator = new BestMoveComparator();

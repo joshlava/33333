@@ -6,11 +6,24 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.lang.Math;
+
+/*
+ * Josh La Verghetta 20762905
+ * Andrew Edwards 20937641
+ * A class to carry out moves on the Threes board.
+ */
 public class Moves {
 
 	private static LinkedList<String> next = new LinkedList<String>();
 	private static LinkedList<String> nextTemp = new LinkedList<String>();
 
+	/*
+	 * A function to actually perform the moves on the board
+	 * @param board the board to be changed
+	 * @param moves the list of moves to be performed on board
+	 * @param print a variable to determine whether we want debugging print statements or not
+	 * @return a linked list containing the moves we actually performed on the board
+	 */
 	public static LinkedList<Object> doMove(int[][] board,
 			ArrayDeque<String> moves, boolean print) {
 
@@ -87,22 +100,39 @@ public class Moves {
 		return Listy;
 	}
 
+	/*
+	 * 
+	 */
 	public static void resetNext() {
 		next = new LinkedList<String>(GUI.Threes.next);
 	}
 
+	/*
+	 * 
+	 */
 	public static void popNext() {
 		GUI.Threes.next.poll();
 	}
 
+	/*
+	 * 
+	 */
 	public static void storeNext() {
 		nextTemp = new LinkedList<String>(GUI.Threes.next);
 	}
 
+	/*
+	 * 
+	 */
 	public static void finalNext() {
 		next = new LinkedList<String>(nextTemp);
 	}
 
+	/*
+	 * A function to carry out a move left on the board
+	 * @param board the board to be manipulated
+	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 */
 	public static int[] Left(int[][] board) {
 
 		boolean did = false;
@@ -207,6 +237,11 @@ public class Moves {
 
 	}
 
+	/*
+	 * A function to carry out a move right on the board
+	 * @param board the board to be manipulated
+	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 */
 	public static int[] Right(int[][] board) {
 		int k = 3;
 		boolean did = false;
@@ -306,6 +341,12 @@ public class Moves {
 
 	}
 
+	/*
+	 * A function to carry out a move up on the board
+	 * @param board the board to be manipulated
+	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 */
+	
 	public static int[] Up(int[][] board) {
 		boolean did = false;
 		boolean did1 = did;
@@ -406,6 +447,11 @@ public class Moves {
 
 	}
 
+	/*
+	 * A function to carry out a move down on the board
+	 * @param board the board to be manipulated
+	 * @return an array containing the heuristic score and the score of the board after the move has been performed.
+	 */
 	public static int[] Down(int[][] board) {
 		int k = 3;
 		boolean did = false;
@@ -507,6 +553,11 @@ public class Moves {
 
 	}
 
+	/*
+	 * A function to count the number of white(empty) tiles on a given board
+	 * @param board the board to be counted
+	 * @return an int containing the number of counted empty tiles
+	 */
 	public static int CountWhite(int board[][]) {
 		int white = 0;
 		for (int i = 0; i < 4; i++) {
@@ -519,6 +570,9 @@ public class Moves {
 		return white;
 	}
 
+	/*
+	 * 
+	 */
 	public static int num12(int board[][]) {
 		int num = 0;
 		for (int i = 0; i < 4; i++) {
@@ -532,6 +586,11 @@ public class Moves {
 		return num;
 	}
 
+	/*
+	 * A function to calculate the heuristic score of a given board
+	 * @param board the board to be analysed
+	 * @return an array of integers containing the heuristic score
+	 */
 	public static int[] Hscore(int[][] board) {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
@@ -546,6 +605,11 @@ public class Moves {
 		return hscore;
 	}
 
+	/*
+	 * A function to calculate the score of a given board
+	 * @param board the board to be analysed
+	 * @return an int containing the score
+	 */
 	public static int countScore(int[][] board) {
 		int count = 0;
 		for (int i = 0; i < 4; i++) {
@@ -568,6 +632,11 @@ public class Moves {
 		return count;
 	}
 
+	/*
+	 * A function to calculate the biggest tile in a board
+	 * @param board the board to be analysed
+	 * @return an int containing the biggest tile on the board
+	 */
 	public static int getBig(int[][] board) {
 		int max = 0;
 		for (int i = 0; i < 4; i++) {
@@ -580,6 +649,9 @@ public class Moves {
 		return max;
 	}
 
+	/*
+	 * 
+	 */
 	public static ArrayList<Integer> GenList(int[][] board, int type, int rc) {
 		ArrayList<Integer> score = new ArrayList<Integer>();
 		int x = 0;
@@ -615,7 +687,7 @@ public class Moves {
 	 * 
 	 * @param A
 	 * @param B
-	 * @return 1 if Bless than A or -1 if A<B or 0 if they are equal
+	 * @return 1 if B less than A or -1 if A<B or 0 if they are equal
 	 */
 	public static int ListComp(ArrayList<Integer> A, ArrayList<Integer> B) {
 		int ret = 0;
