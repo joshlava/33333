@@ -93,8 +93,7 @@ public class Moves {
 		}
 
 		resetNext();
-		Listy.addFirst(score);
-		Listy.addFirst(hScore);
+	
 		if(isFail){
 			Listy.addFirst(-1);
 			Listy.addFirst(-1);
@@ -601,13 +600,15 @@ public class Moves {
 	public static int[] Hscore(int[][] board) {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
-		int multi = hscore[0] / 10 + 1;
+		int rat=hscore[0] / 10 + 1;
+		int multi = rat/5;
+	
 		double ran = Math.random()*1000;
-		hscore[1] =countScore(board) * (multi) - num12(board) * multi
-				+ getBig(board) * multi+ board[0][0] * multi 
+		hscore[1] =countScore(board) * (rat) - num12(board) * rat
+				+ getBig(board) * rat+ board[0][0] * multi 
 				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
 				* board[1][0] + (multi - multi / 10) * board[1][1] + hscore[0]
-				* multi //+(int)ran
+				* rat //+(int)ran
 				;
 		return hscore;
 	}

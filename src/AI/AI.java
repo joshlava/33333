@@ -161,7 +161,6 @@ public class AI {
 		}
 		System.out.println();
 		temp2 = Moves.doMove(board, finalmoves, true);
-		// GUI.Threes.finalBoard();
 		System.out.println("heuristic score was: " + temp2.remove(0));
 
 		System.out.println("Final score was: " + temp2.remove(0));

@@ -150,16 +150,17 @@ public class Threes {
 
 	public static void addMove(String move) {
 		moves += move;
-		moves += ",";
 	}
-public static void finalBoard(){
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			System.out.print(board[i][j] + " ");
+
+	public static void finalBoard() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				System.out.print(board[i][j] + " ");
+			}
+			System.out.println("");
 		}
-		System.out.println("");
 	}
-}
+
 	public static void printArr(ArrayDeque moves) {
 		System.out.println();
 		for (int i = 0; i < 4; i++) {
@@ -305,17 +306,15 @@ public static void finalBoard(){
 				rowScore[i].add(0, -1);
 			if (!did1)
 				did1 = did;
-			  if (did) {
-				  numMoved++; 
-				  if(numMoved==1||AI.Moves.ListComp(rowScore[lowest] , rowScore[i])!=-1)
-				  lowest=i;
-			  
-			  }
-			 
-			
+			if (did) {
+				numMoved++;
+				if (numMoved == 1
+						|| AI.Moves.ListComp(rowScore[lowest], rowScore[i]) != -1)
+					lowest = i;
+
+			}
 
 		}
-		
 
 		if (did1) {
 			setNext(lowest, 3);
@@ -382,15 +381,16 @@ public static void finalBoard(){
 					}
 				}
 			}
-			rowScore[i] = AI.Moves.GenList(board,1,i);
+			rowScore[i] = AI.Moves.GenList(board, 1, i);
 
 			if (did) {
 				rowScore[i].add(0, 1);
-				} else
-					rowScore[i].add(0, -1);
+			} else
+				rowScore[i].add(0, -1);
 			if (did) {
 				numMoved++;
-				if (AI.Moves.ListComp(rowScore[lowest],rowScore[i])==1 || numMoved == 1) {
+				if (AI.Moves.ListComp(rowScore[lowest], rowScore[i]) == 1
+						|| numMoved == 1) {
 					lowest = i;
 				}
 			}
@@ -398,7 +398,7 @@ public static void finalBoard(){
 				did1 = did;
 
 		}
-		
+
 		if (did1) {
 			setNext(lowest, 0);
 			addMove("R");
@@ -465,18 +465,18 @@ public static void finalBoard(){
 				}
 			}
 
-			colScore[i] = AI.Moves.GenList(board,2,i);
-			if(did)
-				colScore[i].add(0,1);
+			colScore[i] = AI.Moves.GenList(board, 2, i);
+			if (did)
+				colScore[i].add(0, 1);
 			else
-				colScore[i].add(0,-1);
-					
+				colScore[i].add(0, -1);
+
 			if (did) {
 				numMoved++;
 
 				if (numMoved == 1)
 					lowest = i;
-				else if (AI.Moves.ListComp(colScore[lowest],colScore[i])==1) {
+				else if (AI.Moves.ListComp(colScore[lowest], colScore[i]) == 1) {
 					lowest = i;
 				}
 			}
@@ -551,22 +551,21 @@ public static void finalBoard(){
 					}
 				}
 			}
-			colScore[i] =AI.Moves.GenList(board,3,i);
-			
-			
-			if(did)
-				colScore[i].add(0,1);
-			else
-				colScore[i].add(0,-1);
-		if (did) {
-			numMoved++;
+			colScore[i] = AI.Moves.GenList(board, 3, i);
 
-			if (numMoved == 1)
-				lowest = i;
-			else if (AI.Moves.ListComp(colScore[lowest],colScore[i])!=-1) {
-				lowest = i;
+			if (did)
+				colScore[i].add(0, 1);
+			else
+				colScore[i].add(0, -1);
+			if (did) {
+				numMoved++;
+
+				if (numMoved == 1)
+					lowest = i;
+				else if (AI.Moves.ListComp(colScore[lowest], colScore[i]) != -1) {
+					lowest = i;
+				}
 			}
-		}
 			if (!did1)
 				did1 = did;
 
