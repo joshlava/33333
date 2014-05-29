@@ -1,5 +1,8 @@
 package AI;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -176,8 +179,16 @@ public class AI {
 
 	public static void main(String[] args) {
 		// AI a = new AI();
+		String input = null;
+		try{
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Please enter an input filename location: ");
+			input = br.readLine();
+		}catch(IOException io){
+			io.printStackTrace();
+		}
 		
-		GUI.Threes.readFile();
+		GUI.Threes.readFile(input);
 		GUI.Threes.set();
 		Moves.storeNext();
 		Moves.resetNext();
@@ -193,7 +204,7 @@ public class AI {
 			System.out.print(Res.removeLast());
 		}
 		System.out.println();
-		GUI.Threes.readFile();
+		GUI.Threes.readFile(input);
 		GUI.Threes.set();
 		Moves.resetNext();
 		recur(GUI.Threes.board, 10);
