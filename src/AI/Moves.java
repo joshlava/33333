@@ -646,11 +646,15 @@ public class Moves {
 
 	//	double ran = Math.random() * 1000;
 		hscore[1] = CountWhite(board) * (rat) - num12(board) * rat
-				+ getBig(board) * rat /*+ board[0][0] * multi
+				+ getBig(board) * rat*rat + board[0][0] * multi
 				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
-				* board[1][0] + (multi - multi / 10) * board[1][1]*/ + hscore[0]
-				* rat // +(int)ran
+				* board[1][0] + (multi - multi / 10) * board[1][1] + hscore[0]
+				* rat +numCom(board)// +(int)ran
 		;
+	//	hscore[1]=CountWhite(board)*rat+hscore[0]*rat;
+	//	hscore[1]=numCom(board);
+	//	hscore[1]=-getBig(board);
+		
 		for (int i=0;i<4;i++){
 			for (int j=0;j<4;j++){
 				hscore[1]+=board[i][j]*multi/(1+i+j);
@@ -658,7 +662,25 @@ public class Moves {
 		}
 		return hscore;
 	}
-
+	public static int numCom(int [][]board){
+		int score=0;
+		for (int i=0;i<4;i++){
+			for(int j=0;j<3;j++){
+			if(board[i][j]>2 && board[i][j]==board[i][j+1])
+				score+=board[i][j];
+				
+				}
+		}
+		for (int j=0;j<4;j++){
+			for(int i=0;i<3;i++){
+			if(board[i][j]>2 && board[i][j]==board[i+1][j])
+				score+=board[i][j];
+				
+				}
+		}
+		return score;
+		
+	}
 	/*
 	 * A function to calculate the score of a given board
 	 * 
@@ -697,14 +719,24 @@ public class Moves {
 	 */
 	public static int getBig(int[][] board) {
 		int max = 0;
+		int [] macord={0,0};
+		int []ma2cord={0,0};
+		int max2=0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (board[i][j] > max) {
+					max2=max;
+					ma2cord[0]=i;
+					ma2cord[1]=j;
 					max = board[i][j];
+					macord[0]=i;
+					macord[1]=j;
 				}
 			}
+			
 		}
-		return max;
+		int dist= macord[0]-ma2cord[0] + macord[1]-ma2cord[1];
+		return dist;
 	}
 
 	/*
