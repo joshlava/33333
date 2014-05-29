@@ -5,7 +5,7 @@ package AI;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
+import java.lang.Math;
 public class Moves {
 
 	private static LinkedList<String> next = new LinkedList<String>();
@@ -14,7 +14,6 @@ public class Moves {
 	public static LinkedList<Object> doMove(int[][] board,
 			ArrayDeque<String> moves, boolean print) {
 
-		resetNext();
 		if (print) {
 			Moves.finalNext();
 		}
@@ -44,7 +43,7 @@ public class Moves {
 				if (isValid[0] != -1) {
 					score = isValid[0];
 					hScore = isValid[1];
-					;
+									
 
 					Listy.add(tempMoves.pollLast());
 				}
@@ -188,18 +187,22 @@ public class Moves {
 				board[lowest][3] = Integer.parseInt(next.remove());
 			} catch (NumberFormatException n) {
 				if (GUI.Threes.next.size() != 0) {
-
+					System.out.println("IHAVENOIDEAWHATSGOINGON");
 				}
 			}
 
 		}
 
 		if (did1) {
-			scores[0] = Hscore(board)[0];
-			scores[1] = Hscore(board)[1];
-
+			int [] temp = Hscore(board);  
+			scores[0]=temp[0];
+			scores[1]=temp[1];
 			return (scores);
-		} else
+
+		} else{
+			scores[0]=-1;
+			scores[1]=-1;
+		}
 			return (scores);
 
 	}
@@ -294,7 +297,9 @@ public class Moves {
 			// addMove("R");
 		}
 		if (did1) {
-			scores = Hscore(board);
+			int [] temp = Hscore(board);  
+			scores[0]=temp[0];
+			scores[1]=temp[1];
 			return (scores);
 		} else
 			return (scores);
@@ -392,7 +397,9 @@ public class Moves {
 			// addMove("U");
 		}
 		if (did1) {
-			scores = Hscore(board);
+			int [] temp = Hscore(board);  
+			scores[0]=temp[0];
+			scores[1]=temp[1];
 			return (scores);
 		} else
 			return (scores);
@@ -491,7 +498,9 @@ public class Moves {
 			// addMove("D");
 		}
 		if (did1) {
-			scores = Hscore(board);
+			int [] temp = Hscore(board);  
+			scores[0]=temp[0];
+			scores[1]=temp[1];
 			return (scores);
 		} else
 			return (scores);
@@ -527,11 +536,13 @@ public class Moves {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
 		int multi = hscore[0] / 10 + 1;
-		hscore[1] = CountWhite(board) * (multi) - num12(board) * multi
-				+ getBig(board) * multi + board[0][0] * multi * multi
+		double ran = Math.random()*1000;
+		hscore[1] =countScore(board) * (multi) - num12(board) * multi
+				+ getBig(board) * multi+ board[0][0] * multi 
 				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
 				* board[1][0] + (multi - multi / 10) * board[1][1] + hscore[0]
-				* multi;
+				* multi //+(int)ran
+				;
 		return hscore;
 	}
 

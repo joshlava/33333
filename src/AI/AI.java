@@ -24,6 +24,7 @@ public class AI {
 		openList.add(initial); // add initial board to openList
 
 		ArrayDeque<String> moves = new ArrayDeque<String>();
+		moves.clear();
 		int HScore = 0;
 		int Score = 0;
 
@@ -33,42 +34,36 @@ public class AI {
 			Node node = openList.remove();
 
 			closedList.add(node);
-		
-			moves = node.moves;
-			Score = node.score;
+
 			LinkedList<Object> temp = new LinkedList<Object>();
-
-
-			node.moves.add("L");
-			temp = Moves.doMove(board, node.moves, false);
-			int tempint = (Integer) temp.get(0);
-			Node left = new Node(tempint, (Integer) temp.get(1),
-					node.moves.clone());
-			openList.add(left);
-			node.moves.removeLast();
-
-			node.moves.add("R");
-			temp = Moves.doMove(board, node.moves, false);
-			Node right = new Node((Integer) temp.get(0), (Integer) temp.get(1),
-					node.moves.clone());
-			openList.add(right);
-			node.moves.removeLast();
 
 			node.moves.add("D");
 			temp = Moves.doMove(board, node.moves, false);
 			Node down = new Node((Integer) temp.get(0), (Integer) temp.get(1),
 					node.moves.clone());
-			openList.add(down);
+			openList.offer(down);
 			node.moves.removeLast();
 
 			node.moves.add("U");
 			temp = Moves.doMove(board, node.moves, false);
 			Node up = new Node((Integer) temp.get(0), (Integer) temp.get(1),
 					node.moves.clone());
-			openList.add(up);
+			openList.offer(up);
+			node.moves.removeLast();
+			node.moves.add("L");
+			temp = Moves.doMove(board, node.moves, false);
+			int tempint = (Integer) temp.get(0);
+			Node left = new Node(tempint, (Integer) temp.get(1),
+					node.moves.clone());
+			openList.offer(left);
 			node.moves.removeLast();
 
-			// }
+			node.moves.add("R");
+			temp = Moves.doMove(board, node.moves, false);
+			Node right = new Node((Integer) temp.get(0), (Integer) temp.get(1),
+					node.moves.clone());
+			openList.offer(right);
+			node.moves.removeLast();
 
 			i++;
 		}
@@ -86,7 +81,6 @@ public class AI {
 	}
 
 	public static void recur(int[][] board, int z) {
-		int x = z;
 		int[][] tempBoard = new int[4][4];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -98,42 +92,59 @@ public class AI {
 		ArrayDeque<String> finalmoves = new ArrayDeque<String>();
 		ArrayDeque<String> temp = new ArrayDeque<String>();
 		LinkedList<Object> temp2 = new LinkedList<Object>();
+		LinkedList<Object> temp3 = new LinkedList<Object>();
+
 		String nextMove = "";
-		for (int i = 0; i < x; i++) {
-	
+		for (int i = 0; i < z; i++) {
 
-			temp = new ArrayDeque<String>(AStar(tempBoard, 500));
+			temp = new ArrayDeque<String>(AStar(tempBoard, 100));
 
 			temp.poll();
 			temp.poll();
-			nextMove = temp.poll();
-			if (nextMove.equals("L")) {
-				GUI.Threes.Left();
-			} else if (nextMove.equals("R")) {
-				GUI.Threes.Right();
-			} else if (nextMove.equals("U")) {
-				GUI.Threes.Up();
-			} else if (nextMove.equals("D")) {
-				GUI.Threes.Down();
-			}else
-				nextMove="X";
-			
-			tempBoard=GUI.Threes.board.clone();
-		
-		
-			if(!nextMove.equals("X"))
-				finalmoves.addFirst(nextMove);
-			Moves.popNext();
+			tempBoard = GUI.Threes.board.clone();
+
+			temp3 = Moves.doMove(tempBoard, temp, false);
+			temp3.poll();
+			temp3.poll();
+			int k = 0;
+			boolean gameon=true;
+			while (!temp.isEmpty() && k<5&&gameon) {
+				nextMove = temp.poll();
+
+				if (nextMove.equals("L")) {
+					gameon=GUI.Threes.Left();
+				} else if (nextMove.equals("R")) {
+					gameon=GUI.Threes.Right();
+				} else if (nextMove.equals("U")) {
+					gameon=GUI.Threes.Up();
+				} else if (nextMove.equals("D")) {
+					gameon=GUI.Threes.Down();
+				} else
+					nextMove = "X";
+				k++;
+				if (!nextMove.equals("X")&&gameon)
+					finalmoves.addFirst(nextMove);
+				Moves.popNext();
+			}
+			//tempBoard = GUI.Threes.board.clone();
+
+			// if(!nextMove.equals("X"))
+			// finalmoves.addFirst(nextMove);
+			// Moves.popNext();
+			if(!gameon){
+				i=z;
+			}
 
 		}
 		System.out.println("contents of finalmoves");
-		int movesize=finalmoves.size();
-		ArrayDeque<String> printemp=new ArrayDeque<String>(finalmoves);
-		for (int i=0;i<movesize;i++){
-			System.out.println(printemp.remove());
+		int movesize = finalmoves.size();
+		ArrayDeque<String> printemp = new ArrayDeque<String>(finalmoves);
+		for (int i = 0; i < movesize; i++) {
+			System.out.print(printemp.remove());
 		}
+		System.out.println();
 		temp2 = Moves.doMove(board, finalmoves, true);
-		//GUI.Threes.finalBoard();
+		// GUI.Threes.finalBoard();
 		System.out.println("heuristic score was: " + temp2.remove(0));
 
 		System.out.println("Final score was: " + temp2.remove(0));
@@ -141,7 +152,7 @@ public class AI {
 
 		System.out.println("Move string was");
 		while (!temp2.isEmpty()) {
-			System.out.print(temp2.removeLast());
+			System.out.print(temp2.remove());
 		}
 		System.out.println();
 	}
@@ -150,13 +161,13 @@ public class AI {
 		// AI a = new AI();
 		GUI.Threes.readFile();
 		GUI.Threes.set();
-		
-		recur(GUI.Threes.board, 50);
+		Moves.resetNext();
+		recur(GUI.Threes.board, 100);
 		GUI.Threes.readFile();
 		GUI.Threes.set();
 		Moves.storeNext();
-
-		ArrayDeque<String> Res = AStar(GUI.Threes.board, 100);
+		Moves.resetNext();
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 20);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 
@@ -165,7 +176,7 @@ public class AI {
 		GUI.Threes.finalBoard();
 
 		while (!Res.isEmpty()) {
-			System.out.print(Res.removeLast());
+			System.out.print(Res.remove());
 		}
 		System.out.println();
 	}

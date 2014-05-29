@@ -12,14 +12,15 @@ public class PriorityQueueTest {
 
 		ArrayDeque moves = new ArrayDeque();
 		
-		Node a = new Node(8,120, moves);
-		Node b = new Node(8,10, moves);
-		Node c = new Node(6,55, moves);
-		Node d = new Node(8,55, moves);
-		Node e=new Node(8,55, moves);
+		Node a = new Node(1,120, moves);
+		Node b = new Node(2,10, moves);
+		Node c = new Node(3,55, moves);
+		Node d = new Node(4,55, moves);
+		Node e=new Node(4,55555, moves);
 		queue.add(a);
 		queue.add(b);
 		queue.add(c);
+		queue.add(e);
 		queue.add(d);
 	/*	b = new Node(66,58,moves);
 		queue.add(b);*/
