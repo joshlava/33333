@@ -430,50 +430,7 @@ public class ThreesGUI extends javax.swing.JPanel {
         frame.pack();
         frame.setVisible(true);
     }
-    private void recur(int[][] board,int z) {
-		int x=50;
-		int[][] tempBoard = new int[4][4];
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				tempBoard[i][j] = board[i][j];
-			}
-		}
-
-		ArrayDeque<String> finalmoves = new ArrayDeque<String>();
-		ArrayDeque<String> temp = new ArrayDeque<String>();
-		LinkedList<Object> temp2 = new LinkedList<Object>();
-		String nextMove="";
-		for (int i=0;i<x;i++){
-			temp=AI.AI.AStar(tempBoard,z);
-			temp.poll();
-			temp.poll();
-			nextMove=temp.poll();
-			if(nextMove.equals("L")){
-				left();
-			}else if(nextMove.equals("R")){
-				right();
-			}else if(nextMove.equals("U")){
-				up();
-			}else if(nextMove.equals("D")){
-				down();
-			}
-			tempBoard=GUI.Threes.board;
-			finalmoves.add(nextMove);
-		}
-		temp2=Moves.doMove(board, finalmoves,true);
-		GUI.Threes.finalBoard();
-		System.out.println("heuristic score was: "+temp2.remove(0));
-
-		System.out.println("Final score was: "+temp2.remove(1));
-		System.out.println("Move string was");
-		while(!temp.isEmpty()){
-			System.out.print(temp.removeLast());
-		}
-				
-
-			
-		
-	}
+    
     public static void main(String[] args) {
         /* Use an appropriate Look and Feel */
         try {
