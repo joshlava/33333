@@ -1,45 +1,76 @@
 package AI;
 
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 public class Node {
 
 	
-	int hScore; //the score our heuristic function gives for the current move
-	int score; //the current score of the board at this current move
-	int [][]board;
-	ArrayDeque<String> moves = new ArrayDeque<String>(); //an ArrayDeque to hold the sequence of moves taken to reach this current board
 	
-	public Node(int hScore , int score,int [][] board,  ArrayDeque<String> moves){
-		this.hScore = hScore;
+	Board board;
+	ArrayList<String> moves = new ArrayList<String>(); //an ArrayDeque to hold the sequence of moves taken to reach this current board
+	
+	public Node(Board board,  ArrayList<String> moves){
+		
 		this.moves = moves;
-		this.score=score;
 		this.board=board;
 	}
+	public Node(Board board){
+		this.board=board;
 	
-	public int getScore()
-	{
-		return score;
+		moves=new ArrayList<String>();
+		
 	}
-	public ArrayDeque<String> getMoves(){
+	
+	
+	public ArrayList<String> getMoves(){
 		return moves;
 	}
-	public int[][] getBoard(){
+	public Board getBoard(){
 		return board;
 	}
-	public int getHScore(){
-		return hScore;
+public ArrayList<Board> getNextMoves(){
+		int n=moves.size();
+		ArrayList<Board> nextMoves=new ArrayList<Board> ();
+		Board temp;
+		temp=betterMoves.Left(board.getBoard(), n);
+		nextMoves.add(temp);
+		temp=betterMoves.Right(board.getBoard(), n);
+		nextMoves.add(temp);
+		temp=betterMoves.Up(board.getBoard(), n);
+		nextMoves.add(temp);
+		temp=betterMoves.Down(board.getBoard(), n);
+		nextMoves.add(temp);
+		
+		return nextMoves;
+		
+		
 	}
-	public void setScore(int score){
-		this.score=score;
-	}
-	public void setHScore(int hScore){
-		this.hScore=hScore;
-	}
-	public void setMoves(ArrayDeque<String> moves){
+	
+	/*public ArrayList<ArrayList<String>> getNextMoves(){
+		
+		ArrayList<ArrayList<String>> nextMoves=new ArrayList<ArrayList<String>> ();
+		ArrayList<String> temp=(ArrayList<String>) moves.clone();
+		temp.add(0,"L");
+		nextMoves.add(temp);
+		temp.remove(0);
+		temp.add(0,"R");
+		nextMoves.add(temp);
+		temp.remove(0);
+		temp.add(0,"U");
+		nextMoves.add(temp);
+		temp.remove(0);
+		temp.add(0,"D");
+		nextMoves.add(temp);
+		temp.remove(0);
+		return nextMoves;
+		
+		
+	}*/
+	
+	public void setMoves(ArrayList<String> moves){
 		this.moves=moves;
 	}
-	public void setBoard(int [][]board){
+	public void setBoard(Board board){
 		this.board=board;
 	}
 }
