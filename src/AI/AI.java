@@ -11,8 +11,7 @@ import java.util.PriorityQueue;
 
 public class AI {
 
-	public static ArrayDeque<String> AStar(int[][] board,int z) {
-		
+	public static ArrayDeque<String> AStar(int[][] board, int z) {
 
 		Comparator<Node> comparator = new BestMoveComparator();
 		PriorityQueue<Node> openList = new PriorityQueue<Node>(z, comparator);
@@ -22,132 +21,149 @@ public class AI {
 		ArrayDeque<String> initialMoves = new ArrayDeque<String>();
 		// initialMoves.add(" ");
 		Node initial = new Node(Moves.countScore(GUI.Threes.board),
-				Moves.Hscore(GUI.Threes.board)[1],  initialMoves);
+				Moves.Hscore(GUI.Threes.board)[1], initialMoves);
 		openList.add(initial); // add initial board to openList
 
 		ArrayDeque<String> moves = new ArrayDeque<String>();
 		int HScore = 0;
 		int Score = 0;
-		
+
 		int goal = 10;
 		int i = 0;
 		while (!openList.isEmpty() && i < z) {
 			Node node = openList.remove();
 
-				closedList.add(node);
-				/*
-				 * System.out.println("/=/=/=/=/==/=/=/=/=/=/==");
-				 * System.out.print("Size of openList ");
-				 * System.out.println(openList.size());
-				 * System.out.print("The whitespace of best node is: ");
-				 * System.out.println(node.whiteSpace);
-				 */
+			closedList.add(node);
+			/*
+			 * System.out.println("/=/=/=/=/==/=/=/=/=/=/==");
+			 * System.out.print("Size of openList ");
+			 * System.out.println(openList.size());
+			 * System.out.print("The whitespace of best node is: ");
+			 * System.out.println(node.whiteSpace);
+			 */
 
-				moves = node.moves;
-				// node.printNode();
-				Score = node.score;
-				LinkedList<Object> temp = new LinkedList<Object>();
+			moves = node.moves;
+			// node.printNode();
+			Score = node.score;
+			LinkedList<Object> temp = new LinkedList<Object>();
 
-				// while(whiteSpace < goal && openList.size() < 100){
+			// while(whiteSpace < goal && openList.size() < 100){
 
-				node.moves.offer("L");
-				temp = Moves.doMove(board, node.moves,false);
-				int tempint = (Integer) temp.get(0);
-				Node left = new Node(tempint, (Integer) temp.get(1), node.moves.clone());
-				openList.add(left);
-				node.moves.removeLast();
+			node.moves.add("L");
+			temp = Moves.doMove(board, node.moves, false);
+			int tempint = (Integer) temp.get(0);
+			Node left = new Node(tempint, (Integer) temp.get(1),
+					node.moves.clone());
+			openList.add(left);
+			node.moves.removeLast();
 
-				node.moves.add("R");
-				temp = Moves.doMove(board, node.moves,false);
-				Node right = new Node((Integer) temp.get(0),
-						(Integer) temp.get(1), node.moves.clone());
-				openList.add(right);
-				node.moves.removeLast();
+			node.moves.add("R");
+			temp = Moves.doMove(board, node.moves, false);
+			Node right = new Node((Integer) temp.get(0), (Integer) temp.get(1),
+					node.moves.clone());
+			openList.add(right);
+			node.moves.removeLast();
 
-				node.moves.add("D");
-				temp = Moves.doMove(board, node.moves,false);
-				Node down = new Node((Integer) temp.get(0),
-						(Integer) temp.get(1),  node.moves.clone());
-				openList.add(down);
-				node.moves.removeLast();
+			node.moves.add("D");
+			temp = Moves.doMove(board, node.moves, false);
+			Node down = new Node((Integer) temp.get(0), (Integer) temp.get(1),
+					node.moves.clone());
+			openList.add(down);
+			node.moves.removeLast();
 
-				node.moves.offer("U");
-				temp = Moves.doMove(board, node.moves,false);
-				Node up = new Node((Integer) temp.get(0),
-						(Integer) temp.get(1), node.moves.clone());
-				openList.add(up);
-				node.moves.removeLast();
+			node.moves.add("U");
+			temp = Moves.doMove(board, node.moves, false);
+			Node up = new Node((Integer) temp.get(0), (Integer) temp.get(1),
+					node.moves.clone());
+			openList.add(up);
+			node.moves.removeLast();
 
-				// }
+			// }
 
 			i++;
 		}
 		Node node = closedList.remove();
 		Score = node.score;
-		HScore=node.hScore;
+		HScore = node.hScore;
 		moves = node.moves;
 		String heurScore = "Heuristic Score is: " + HScore;
 		String scorescore = "Game Score is: " + Score;
-		
+
 		moves.addFirst(heurScore);
 		moves.addFirst(scorescore);
 		return moves;
 
 	}
-	public static void recur(int[][] board,int z) {
-		int x=z;
+
+	public static void recur(int[][] board, int z) {
+		int x = z;
 		int[][] tempBoard = new int[4][4];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				tempBoard[i][j] = board[i][j];
 			}
 		}
-		//GUI.ThreesGUI gui = new GUI.ThreesGUI();
+		Moves.storeNext();
+		// GUI.ThreesGUI gui = new GUI.ThreesGUI();
 		ArrayDeque<String> finalmoves = new ArrayDeque<String>();
 		ArrayDeque<String> temp = new ArrayDeque<String>();
 		LinkedList<Object> temp2 = new LinkedList<Object>();
-		String nextMove="";
-		for (int i=0;i<x;i++){
-			temp=AStar(tempBoard,z);
+		String nextMove = "";
+		for (int i = 0; i < x; i++) {
+	
+
+			temp = new ArrayDeque<String>(AStar(tempBoard, z));
+
 			temp.poll();
 			temp.poll();
-			nextMove=temp.poll();
-			if(nextMove.equals("L")){
+			nextMove = temp.poll();
+			if (nextMove.equals("L")) {
 				GUI.Threes.Left();
-			}else if(nextMove.equals("R")){
+			} else if (nextMove.equals("R")) {
 				GUI.Threes.Right();
-			}else if(nextMove.equals("U")){
+			} else if (nextMove.equals("U")) {
 				GUI.Threes.Up();
-			}else if(nextMove.equals("D")){
+			} else if (nextMove.equals("D")) {
 				GUI.Threes.Down();
-			}
-			tempBoard=GUI.Threes.board;
-			finalmoves.add(nextMove);
+			}else
+				nextMove="X";
 			
-		}
-		temp2=Moves.doMove(board, finalmoves,true);
-		GUI.Threes.finalBoard();
-		System.out.println("heuristic score was: "+temp2.remove(0));
-
-		System.out.println("Final score was: "+temp2.remove(0));
-		System.out.println("Move string was");
-		while(!temp.isEmpty()){
-			System.out.print(temp.removeLast());
-		}
-				
-
-			
+			tempBoard=GUI.Threes.board.clone();
 		
+		
+			if(!nextMove.equals("X"))
+				finalmoves.addFirst(nextMove);
+			Moves.popNext();
+
+		}
+		temp2 = Moves.doMove(board, finalmoves, true);
+		//GUI.Threes.finalBoard();
+		System.out.println("heuristic score was: " + temp2.remove(0));
+
+		System.out.println("Final score was: " + temp2.remove(0));
+		GUI.Threes.finalBoard();
+
+		System.out.println("Move string was");
+		while (!temp2.isEmpty()) {
+			System.out.print(temp2.removeLast());
+		}
+		System.out.println();
 	}
+
 	public static void main(String[] args) {
-		//AI a = new AI();
+		// AI a = new AI();
 		GUI.Threes.readFile();
 		GUI.Threes.set();
-		ArrayDeque<String> Res = AStar(GUI.Threes.board,100);
+		
+		recur(GUI.Threes.board, 100);
+		GUI.Threes.readFile();
+		GUI.Threes.set();
+		Moves.storeNext();
+
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 500);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 
-		
 		Moves.doMove(GUI.Threes.board, Res, true);
 		System.out.println("Final board is");
 		GUI.Threes.finalBoard();
@@ -155,9 +171,7 @@ public class AI {
 		while (!Res.isEmpty()) {
 			System.out.print(Res.removeLast());
 		}
-		
-		recur(GUI.Threes.board,100);
+		System.out.println();
 	}
-		
 
 }

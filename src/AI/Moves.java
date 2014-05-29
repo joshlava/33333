@@ -8,11 +8,15 @@ import java.util.LinkedList;
 public class Moves {
 
 	private static LinkedList<String> next = new LinkedList<String>();
+	private static LinkedList<String> nextTemp = new LinkedList<String>();
 
 	public static LinkedList<Object> doMove(int[][] board,
 			ArrayDeque<String> moves,boolean print) {
 
 		resetNext();
+		if(print){
+			Moves.finalNext();
+		}
 		int[][] tempBoard = new int[4][4];
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -74,9 +78,7 @@ public class Moves {
 				tempMoves.remove();
 			}
 		}
-		GUI.Threes.board = tempBoard;
-	//	GUI.Threes.printListArr(Listy);
-		GUI.Threes.board = board;
+		
 		resetNext();
 		Listy.addFirst(score);
 		Listy.addFirst(hScore);
@@ -88,7 +90,15 @@ public class Moves {
 	public static void resetNext() {
 		next = new LinkedList<String>(GUI.Threes.next);
 	}
-
+	public static void popNext(){
+		GUI.Threes.next.poll();
+	}
+	public static void storeNext(){
+		nextTemp=new LinkedList<String>(GUI.Threes.next);
+	}
+	public static void finalNext(){
+		next=new LinkedList<String>(nextTemp);
+	}
 	public static int[] Left(int[][] board) {
 
 		boolean did = false;
