@@ -16,6 +16,9 @@ package GUI;
 
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.LinkedList;
 
@@ -34,7 +37,15 @@ public class ThreesGUI extends javax.swing.JPanel {
      */
     public ThreesGUI() {
         initComponents();
-        Threes.readFile();
+    	String input = null;
+		try{
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Please enter an input filename location: ");
+			input = br.readLine();
+		}catch(IOException io){
+			io.printStackTrace();
+		}
+        Threes.readFile(input);
         Threes.set();
         refresh();   
         
@@ -356,7 +367,7 @@ public class ThreesGUI extends javax.swing.JPanel {
     private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
     }//GEN-LAST:event_jPanel1KeyPressed
     private void newGameActionPerformed(java.awt.event.ActionEvent evt){
-    	Threes.readFile();
+    //	Threes.readFile();
         Threes.set();
        
         refresh();

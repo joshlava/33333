@@ -586,13 +586,5 @@ public static void finalBoard(){
 
 	}
 
-	/**
-	 * @param args
-	 *            the command line arguments
-	 * 
-	 *            public static void main(String[] args) { //
-	 *            System.out.println(readFile()); readFile(); set(); printArr();
-	 *            }
-	 */
 
 }

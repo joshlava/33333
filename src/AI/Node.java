@@ -2,47 +2,44 @@ package AI;
 
 import java.util.ArrayDeque;
 
-/* 
- * Josh La Verghetta 20762905
- * Andrew Edwards 20937641
- * A class to hold the required information of each board move.
- */
 public class Node {
+
 	
 	int hScore; //the score our heuristic function gives for the current move
 	int score; //the current score of the board at this current move
-	
+	int [][]board;
 	ArrayDeque<String> moves = new ArrayDeque<String>(); //an ArrayDeque to hold the sequence of moves taken to reach this current board
 	
-	public Node(int hScore , int score,  ArrayDeque<String> moves){
+	public Node(int hScore , int score,int [][] board,  ArrayDeque<String> moves){
 		this.hScore = hScore;
 		this.moves = moves;
 		this.score=score;
+		this.board=board;
 	}
 	
-	/*
-	 * A function to print the contents of a node
-	 */
-	public void printNode(){
-		ArrayDeque<String> tempnode=moves.clone();
-		System.out.println("NODE.MOVES CONTENT BEING PRINTED HERE ");
-		while(!tempnode.isEmpty()){
-			System.out.print(tempnode.remove());
-		}
-		System.out.println("");
-		System.out.println("NODE MOVES CONTENT FINISHED PRINTING");
+	public int getScore()
+	{
+		return score;
 	}
-	
-	/*
-	 * A function to compare two nodes
-	 * @return true, if the nodes have the same contents, false otherwise
-	 */
-	public boolean isEquals(Node a, Node b){
-		if(a.moves.equals(b.moves))
-			return true;
-		else
-			return false;
-		
+	public ArrayDeque<String> getMoves(){
+		return moves;
 	}
-	
+	public int[][] getBoard(){
+		return board;
+	}
+	public int getHScore(){
+		return hScore;
+	}
+	public void setScore(int score){
+		this.score=score;
+	}
+	public void setHScore(int hScore){
+		this.hScore=hScore;
+	}
+	public void setMoves(ArrayDeque<String> moves){
+		this.moves=moves;
+	}
+	public void setBoard(int [][]board){
+		this.board=board;
+	}
 }

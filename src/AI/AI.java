@@ -18,9 +18,13 @@ import java.util.PriorityQueue;
 public class AI {
 
 	/*
-	 * A function that generates a list of the series of moves to play that are considered the best by our heuristic function.
+	 * A function that generates a list of the series of moves to play that are
+	 * considered the best by our heuristic function.
+	 * 
 	 * @param board the board to be used to manipulate
+	 * 
 	 * @param z the depth for the algorithm to go to.
+	 * 
 	 * @return an ArrayDeque containing the series of recommended moves
 	 */
 	public static ArrayDeque<String> AStar(int[][] board, int z) {
@@ -48,45 +52,47 @@ public class AI {
 
 			node.moves.add("D");
 			temp = Moves.doMove(board, node.moves, false);
-				if((int)temp.peek()!=-1){
-				Node down = new Node((Integer) temp.get(0), (Integer) temp.get(1),
-						node.moves.clone());
+			if ((int) temp.peek() != -1) {
+				Node down = new Node((Integer) temp.get(0),
+						(Integer) temp.get(1), node.moves.clone());
 				openList.offer(down);
-				}
+			}
 			node.moves.removeLast();
 
 			node.moves.add("U");
 			temp = Moves.doMove(board, node.moves, false);
-			if((int)temp.peek()!=-1){
-			Node up = new Node((Integer) temp.get(0), (Integer) temp.get(1),
-					node.moves.clone());
-			openList.offer(up);
+			if ((int) temp.peek() != -1) {
+				Node up = new Node((Integer) temp.get(0),
+						(Integer) temp.get(1), node.moves.clone());
+				openList.offer(up);
 			}
 			node.moves.removeLast();
 			node.moves.add("L");
 			temp = Moves.doMove(board, node.moves, false);
-			if((int)temp.peek()!=-1){
-			int tempint = (Integer) temp.get(0);
-			Node left = new Node(tempint, (Integer) temp.get(1),
-					node.moves.clone());
-			openList.offer(left);
+			if ((int) temp.peek() != -1) {
+				int tempint = (Integer) temp.get(0);
+				Node left = new Node(tempint, (Integer) temp.get(1),
+						node.moves.clone());
+				openList.offer(left);
 			}
 			node.moves.removeLast();
 
 			node.moves.add("R");
 			temp = Moves.doMove(board, node.moves, false);
-			if((int)temp.peek()!=-1){
-			Node right = new Node((Integer) temp.get(0), (Integer) temp.get(1),
-					node.moves.clone());
-			openList.offer(right);
+			if ((int) temp.peek() != -1) {
+				Node right = new Node((Integer) temp.get(0),
+						(Integer) temp.get(1), node.moves.clone());
+				openList.offer(right);
 			}
 			node.moves.removeLast();
 
 			i++;
-			
+
 		}
-		Node bestOpen = openList.remove();
-		closedList.add(bestOpen);
+		if (openList.size() > 1) {
+			Node bestOpen = openList.remove();
+			closedList.add(bestOpen);
+		}
 		Node node = closedList.remove();
 		Score = node.score;
 		HScore = node.hScore;
@@ -127,33 +133,33 @@ public class AI {
 			temp3.poll();
 			temp3.poll();
 			int k = 0;
-			boolean gameon=true;
-			while (!temp.isEmpty() && k<5&&gameon) {
+			boolean gameon = true;
+			while (!temp.isEmpty() && k < 5 && gameon) {
 				nextMove = temp.pollLast();
 
 				if (nextMove.equals("L")) {
-					gameon=GUI.Threes.Left();
+					gameon = GUI.Threes.Left();
 				} else if (nextMove.equals("R")) {
-					gameon=GUI.Threes.Right();
+					gameon = GUI.Threes.Right();
 				} else if (nextMove.equals("U")) {
-					gameon=GUI.Threes.Up();
+					gameon = GUI.Threes.Up();
 				} else if (nextMove.equals("D")) {
-					gameon=GUI.Threes.Down();
+					gameon = GUI.Threes.Down();
 				} else
 					nextMove = "X";
 				k++;
-				if (!nextMove.equals("X")&&gameon){
+				if (!nextMove.equals("X") && gameon) {
 					finalmoves.addFirst(nextMove);
-				Moves.popNext();
+					Moves.popNext();
 				}
 			}
-			//tempBoard = GUI.Threes.board.clone();
+			// tempBoard = GUI.Threes.board.clone();
 
 			// if(!nextMove.equals("X"))
 			// finalmoves.addFirst(nextMove);
 			// Moves.popNext();
-			if(!gameon){
-				i=z;
+			if (!gameon) {
+				i = z;
 			}
 
 		}
@@ -179,15 +185,15 @@ public class AI {
 
 	public static void main(String[] args) {
 		// AI a = new AI();
-		String input = null;
-		try{
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Please enter an input filename location: ");
-			input = br.readLine();
-		}catch(IOException io){
-			io.printStackTrace();
-		}
-		
+		String input = "exampleinput.txt";
+		/*
+		 * try{ BufferedReader br = new BufferedReader(new
+		 * InputStreamReader(System.in));
+		 * System.out.println("Please enter an input filename location: ");
+		 * input = br.readLine(); }catch(IOException io){ io.printStackTrace();
+		 * }
+		 */
+
 		GUI.Threes.readFile(input);
 		GUI.Threes.set();
 		Moves.storeNext();
@@ -198,7 +204,7 @@ public class AI {
 
 		Moves.doMove(GUI.Threes.board, Res, true);
 		System.out.println("Final board is");
-		//GUI.Threes.finalBoard();
+		// GUI.Threes.finalBoard();
 
 		while (!Res.isEmpty()) {
 			System.out.print(Res.removeLast());

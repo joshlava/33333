@@ -770,7 +770,7 @@ public class Moves {
 		 * ard.add("L"); ard.add("R"); ard.add("U"); ard.add("D"); ard.add("U");
 		 * ard.add("R"); ard.add("L");
 		 */
-		GUI.Threes.readFile();
+		
 		GUI.Threes.set();
 
 		ArrayList<Integer> test = GenList(GUI.Threes.board, 3, 3);
