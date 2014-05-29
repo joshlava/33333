@@ -642,13 +642,13 @@ public class Moves {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
 		int rat = hscore[0] / 10 + 1;
-		int multi = rat / 5;
+		int multi = rat / 3;
 
 		double ran = Math.random() * 1000;
 		hscore[1] = countScore(board) * (rat) - num12(board) * rat
-				+ getBig(board) * rat + board[0][0] * multi
+				+ getBig(board) * rat /*+ board[0][0] * multi
 				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
-				* board[1][0] + (multi - multi / 10) * board[1][1] + hscore[0]
+				* board[1][0] + (multi - multi / 10) * board[1][1]*/ + hscore[0]
 				* rat // +(int)ran
 		;
 		return hscore;

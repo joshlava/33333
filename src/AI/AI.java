@@ -180,7 +180,7 @@ public class AI {
 		GUI.Threes.set();
 		Moves.storeNext();
 		Moves.resetNext();
-		ArrayDeque<String> Res = AStar(GUI.Threes.board, 25);
+		ArrayDeque<String> Res = AStar(GUI.Threes.board, 400);
 		System.out.println(Res.removeFirst());
 		System.out.println(Res.removeFirst());
 
