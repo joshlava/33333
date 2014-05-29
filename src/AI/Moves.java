@@ -660,7 +660,46 @@ public class Moves {
 				hscore[1]+=board[i][j]*multi/(1+i+j);
 			}
 		}
+		hscore[1]=newHeur(board);
 		return hscore;
+	}
+	public static int newHeur(int [][]board){
+		int heur=100;
+		for (int i=0;i<4;i++){
+			for (int j=0;j<3;j++)
+			if(board[i][j]>board[i][j+1]){
+				heur++;
+			}else 
+					heur--;
+			
+		}
+		for (int j=0;j<4;j++){
+			for (int i=0;i<3;i++)
+			if(board[i][j]>board[i+1][j]){
+				heur++;
+				
+				
+			}else heur--;
+		}
+		
+		for (int i=0;i<4;i++){
+			for (int j=0;j<3;j++)
+			if(board[i][j]>board[i][j+1]*4||4*board[i][j]<board[i][j+1]){
+				heur--;
+			}
+		}
+		for (int j=0;j<4;j++){
+			for (int i=0;i<3;i++)
+			if(board[i][j]>board[i+1][j]*4||board[i][j]*4<board[i+1][j]){
+				heur--;
+			}
+			
+		}
+		
+		int z= CountWhite(board);
+		heur+=z;
+		return heur;
+		
 	}
 	public static int numCom(int [][]board){
 		int score=0;

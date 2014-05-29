@@ -50,7 +50,7 @@ public class Search {
 	
 	
 	public static void main(String [] args){
-		String input = "evan";
+		String input = "ridge";
 		GUI.Threes.readFile(input);
 		GUI.Threes.set();
 		
