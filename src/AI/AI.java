@@ -114,7 +114,7 @@ public class AI {
 		String nextMove = "";
 		for (int i = 0; i < z; i++) {
 
-			temp = new ArrayDeque<String>(AStar(tempBoard, 100));
+			temp = new ArrayDeque<String>(AStar(tempBoard, 50));
 
 			temp.poll();
 			temp.poll();
@@ -139,9 +139,10 @@ public class AI {
 				} else
 					nextMove = "X";
 				k++;
-				if (!nextMove.equals("X")&&gameon)
+				if (!nextMove.equals("X")&&gameon){
 					finalmoves.addFirst(nextMove);
 				Moves.popNext();
+				}
 			}
 			//tempBoard = GUI.Threes.board.clone();
 
