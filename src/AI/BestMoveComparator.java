@@ -12,8 +12,11 @@ public class BestMoveComparator implements Comparator<Node> {
 
 	/*
 	 * A function to compare two different nodes
+	 * 
 	 * @param o1 the first node
+	 * 
 	 * @param o2 the second node
+	 * 
 	 * @return an int representing a numerical value to be used for sorting.
 	 */
 	public int compare(Node o1, Node o2) {

@@ -92,10 +92,10 @@ public class heuristics {
 	 */
 	public static int newHeur(int[][] board) {
 		int heur = 0;
-		int z = CountWhite(board) ;
-		int y=z* countScore(board) / 6;
-	//	heur += z;
-		
+		int z = CountWhite(board);
+		int y = z * countScore(board) / 6;
+		// heur += z;
+
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 3; j++)
 				if (board[i][j] > board[i][j + 1]) {
@@ -142,9 +142,9 @@ public class heuristics {
 				}
 
 		}
-		if(z>5)
-			heur=heur*2;
-		heur+=y;
+		if (z > 5)
+			heur = heur * 2;
+		heur += y;
 
 		return heur;
 

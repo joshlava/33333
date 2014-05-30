@@ -3,16 +3,17 @@ package AI;
 import java.util.ArrayList;
 
 import old.Moves;
+
 /**
  * 
  * @author Nicolas La Verghetta
- * @author Andrew Edwards
- * A class that controls the movements of the boards, this particular class differs from those in old.Moves and GUI.Threes
- * as it returns a Board 
- *
+ * @author Andrew Edwards A class that controls the movements of the boards,
+ *         this particular class differs from those in old.Moves and GUI.Threes
+ *         as it returns a Board
+ * 
  */
 public class betterMoves {
-	public static Board Down(int[][] board,int n) {
+	public static Board Down(int[][] board, int n) {
 		int k = 3;
 		boolean did = false;
 		boolean did1 = did;
@@ -103,13 +104,12 @@ public class betterMoves {
 			}
 			// addMove("D");
 		}
-		Board temp=new Board(board,!did1,"D");
-		return(temp);
+		Board temp = new Board(board, !did1, "D");
+		return (temp);
 
 	}
-	
-	
-	public static Board Left(int[][] board,int n) {
+
+	public static Board Left(int[][] board, int n) {
 
 		boolean did = false;
 		boolean did1 = false;
@@ -199,11 +199,12 @@ public class betterMoves {
 
 		}
 
-		Board temp=new Board(board,!did1,"L");
+		Board temp = new Board(board, !did1, "L");
 		return temp;
 
 	}
-	public static Board Right(int[][] board,int n) {
+
+	public static Board Right(int[][] board, int n) {
 		int k = 3;
 		boolean did = false;
 		boolean did1 = false;
@@ -291,12 +292,12 @@ public class betterMoves {
 			}
 			// addMove("R");
 		}
-		Board temp=new Board(board,!did1,"R");
+		Board temp = new Board(board, !did1, "R");
 		return temp;
 
 	}
 
-	public static Board Up(int[][] board,int n) {
+	public static Board Up(int[][] board, int n) {
 		boolean did = false;
 		boolean did1 = did;
 		int lowest = 0;
@@ -385,7 +386,7 @@ public class betterMoves {
 			}
 			// addMove("U");
 		}
-		Board temp=new Board(board,!did1,"U");
+		Board temp = new Board(board, !did1, "U");
 		return temp;
 
 	}

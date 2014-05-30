@@ -1,0 +1,3 @@
+Game over after expanding 129 nodes
+Score was 152 heuristic score was 5944
+LDLULUURURLLU

@@ -33,8 +33,7 @@ public class Node {
 
 	public ArrayList<Board> getNextMoves() {
 		int n = moves.size();
-		
-		
+
 		ArrayList<Board> nextMoves = new ArrayList<Board>();
 		Board temp;
 		temp = betterMoves.Left(resetBoard(), n);
@@ -49,44 +48,35 @@ public class Node {
 		return nextMoves;
 
 	}
-	public int[][] resetBoard(){
-		int[][] tempBoard=new int [4][4];
-		for (int i=0;i<4;i++){
-			for(int j=0;j<4;j++){
-				tempBoard[i][j]=board.getBoard()[i][j];
+
+	public int[][] resetBoard() {
+		int[][] tempBoard = new int[4][4];
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				tempBoard[i][j] = board.getBoard()[i][j];
 			}
 		}
 		return tempBoard;
 	}
-	/*
-	 * public ArrayList<ArrayList<String>> getNextMoves(){
-	 * 
-	 * ArrayList<ArrayList<String>> nextMoves=new ArrayList<ArrayList<String>>
-	 * (); ArrayList<String> temp=(ArrayList<String>) moves.clone();
-	 * temp.add(0,"L"); nextMoves.add(temp); temp.remove(0); temp.add(0,"R");
-	 * nextMoves.add(temp); temp.remove(0); temp.add(0,"U");
-	 * nextMoves.add(temp); temp.remove(0); temp.add(0,"D");
-	 * nextMoves.add(temp); temp.remove(0); return nextMoves;
-	 * 
-	 * 
-	 * }
-	 */
 
 	public void setMoves(ArrayList<String> moves) {
 		this.moves = moves;
 	}
-	public void printMoves(){
-		for(int i=0;i<moves.size();i++){
+
+	public void printMoves() {
+		for (int i = 0; i < moves.size(); i++) {
 			System.out.println(moves.get(i));
 		}
 	}
-	public String stringMoves(){
-		String pMoves="";
-		for(int i=0;i<moves.size();i++){
-			pMoves+=moves.get(i);
+
+	public String stringMoves() {
+		String pMoves = "";
+		for (int i = 0; i < moves.size(); i++) {
+			pMoves += moves.get(i);
 		}
 		return pMoves;
 	}
+
 	public void setBoard(Board board) {
 		this.board = board;
 	}

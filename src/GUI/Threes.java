@@ -44,16 +44,16 @@ public class Threes {
 
 			while (sc.hasNext() && z < 16) {
 				String temp = sc.next();
-				if(Pattern.matches(".*\\D.*", temp)){
+				if (Pattern.matches(".*\\D.*", temp)) {
 					throw new Exception("Invalid input board, cannot continue.");
-				} else 
+				} else
 					nums.add(temp);
 				z++;
 
 			}
 			while (sc.hasNext()) {
 				String temp = sc.next();
-				if(!Pattern.matches("\\D*|\\d*\\D\\d*", temp))
+				if (!Pattern.matches("\\D*|\\d*\\D\\d*", temp))
 					next.add(temp);
 				z++;
 
@@ -93,7 +93,9 @@ public class Threes {
 			e.printStackTrace();
 		}
 	}
-	public static void printToFile(String moves,String scores,String gg,AI.Board b) {
+
+	public static void printToFile(String moves, String scores, String gg,
+			AI.Board b) {
 		try {
 
 			File file = new File("out.txt");
@@ -106,13 +108,16 @@ public class Threes {
 			FileWriter fw = new FileWriter(file.getAbsoluteFile());
 			BufferedWriter bw = new BufferedWriter(fw);
 			bw.write(gg);
+			System.out.println(gg);
 			bw.newLine();
 			bw.write(scores);
+			System.out.println(scores);
 			bw.newLine();
-			/*for (int i=0;i<4;i++){
-				bw.write(b.printBoardbyLine()[i]);
-				bw.newLine();
-			}*/
+			/*
+			 * for (int i=0;i<4;i++){ bw.write(b.printBoardbyLine()[i]);
+			 * bw.newLine(); }
+			 */
+			b.printBoard();
 			bw.write(moves);
 			bw.close();
 
@@ -122,10 +127,12 @@ public class Threes {
 			e.printStackTrace();
 		}
 	}
-	public static String getNext(int n){
+
+	public static String getNext(int n) {
 		return next.get(n);
 	}
-	public static int sizeNext(){
+
+	public static int sizeNext() {
 		return next.size();
 	}
 
@@ -193,14 +200,16 @@ public class Threes {
 		moves += move;
 		moves += ",";
 	}
-public static void finalBoard(){
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			System.out.print(board[i][j] + " ");
+
+	public static void finalBoard() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				System.out.print(board[i][j] + " ");
+			}
+			System.out.println("");
 		}
-		System.out.println("");
 	}
-}
+
 	public static void printArr(ArrayDeque moves) {
 		System.out.println();
 		for (int i = 0; i < 4; i++) {
@@ -346,17 +355,15 @@ public static void finalBoard(){
 				rowScore[i].add(0, -1);
 			if (!did1)
 				did1 = did;
-			  if (did) {
-				  numMoved++; 
-				  if(numMoved==1||old.Moves.ListComp(rowScore[lowest] , rowScore[i])!=-1)
-				  lowest=i;
-			  
-			  }
-			 
-			
+			if (did) {
+				numMoved++;
+				if (numMoved == 1
+						|| old.Moves.ListComp(rowScore[lowest], rowScore[i]) != -1)
+					lowest = i;
+
+			}
 
 		}
-		
 
 		if (did1) {
 			setNext(lowest, 3);
@@ -423,15 +430,16 @@ public static void finalBoard(){
 					}
 				}
 			}
-			rowScore[i] = old.Moves.GenList(board,1,i);
+			rowScore[i] = old.Moves.GenList(board, 1, i);
 
 			if (did) {
 				rowScore[i].add(0, 1);
-				} else
-					rowScore[i].add(0, -1);
+			} else
+				rowScore[i].add(0, -1);
 			if (did) {
 				numMoved++;
-				if (old.Moves.ListComp(rowScore[lowest],rowScore[i])==1 || numMoved == 1) {
+				if (old.Moves.ListComp(rowScore[lowest], rowScore[i]) == 1
+						|| numMoved == 1) {
 					lowest = i;
 				}
 			}
@@ -439,7 +447,7 @@ public static void finalBoard(){
 				did1 = did;
 
 		}
-		
+
 		if (did1) {
 			setNext(lowest, 0);
 			addMove("R");
@@ -506,18 +514,18 @@ public static void finalBoard(){
 				}
 			}
 
-			colScore[i] = old.Moves.GenList(board,2,i);
-			if(did)
-				colScore[i].add(0,1);
+			colScore[i] = old.Moves.GenList(board, 2, i);
+			if (did)
+				colScore[i].add(0, 1);
 			else
-				colScore[i].add(0,-1);
-					
+				colScore[i].add(0, -1);
+
 			if (did) {
 				numMoved++;
 
 				if (numMoved == 1)
 					lowest = i;
-				else if (old.Moves.ListComp(colScore[lowest],colScore[i])==1) {
+				else if (old.Moves.ListComp(colScore[lowest], colScore[i]) == 1) {
 					lowest = i;
 				}
 			}
@@ -592,22 +600,21 @@ public static void finalBoard(){
 					}
 				}
 			}
-			colScore[i] =old.Moves.GenList(board,3,i);
-			
-			
-			if(did)
-				colScore[i].add(0,1);
-			else
-				colScore[i].add(0,-1);
-		if (did) {
-			numMoved++;
+			colScore[i] = old.Moves.GenList(board, 3, i);
 
-			if (numMoved == 1)
-				lowest = i;
-			else if (old.Moves.ListComp(colScore[lowest],colScore[i])!=-1) {
-				lowest = i;
+			if (did)
+				colScore[i].add(0, 1);
+			else
+				colScore[i].add(0, -1);
+			if (did) {
+				numMoved++;
+
+				if (numMoved == 1)
+					lowest = i;
+				else if (old.Moves.ListComp(colScore[lowest], colScore[i]) != -1) {
+					lowest = i;
+				}
 			}
-		}
 			if (!did1)
 				did1 = did;
 
@@ -620,6 +627,5 @@ public static void finalBoard(){
 		return (did1);
 
 	}
-
 
 }
