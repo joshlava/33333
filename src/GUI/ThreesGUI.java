@@ -35,11 +35,11 @@ public class ThreesGUI extends javax.swing.JPanel {
 	/**
 	 * Creates new form ThreesGUI
 	 */
-	public static String input = "exampleinput.txt";
+	public static String input = "";
 	public ThreesGUI() {
 		initComponents();
 		
-
+		if(input.equals("")){
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					System.in));
@@ -47,6 +47,7 @@ public class ThreesGUI extends javax.swing.JPanel {
 			input = br.readLine();
 		} catch (IOException io) {
 			io.printStackTrace();
+		}
 		}
 
 		Threes.readFile(input);

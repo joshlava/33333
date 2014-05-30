@@ -1,6 +1,5 @@
 package AI;
 
-import old.Moves;
 
 public class Board {
 	private int[][] board;

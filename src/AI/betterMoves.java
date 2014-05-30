@@ -109,6 +109,7 @@ public class betterMoves {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Board Left(int[][] board, int n) {
 
 		boolean did = false;
@@ -116,7 +117,6 @@ public class betterMoves {
 		int numMoved = 0;
 		ArrayList<Integer>[] rowScore = new ArrayList[4];
 		int lowest = 0;
-		int[] scores = { -1, -1 };
 		for (int i = 0; i < 4; i++) {
 			did = false;
 			if (board[i][0] == 1 && board[i][1] == 2 || board[i][0] == 2
@@ -204,6 +204,7 @@ public class betterMoves {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Board Right(int[][] board, int n) {
 		int k = 3;
 		boolean did = false;
@@ -297,6 +298,7 @@ public class betterMoves {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static Board Up(int[][] board, int n) {
 		boolean did = false;
 		boolean did1 = did;

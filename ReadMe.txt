@@ -1,3 +1,7 @@
+This is an Artificial Intelligence program designed to play the game Threes,
+It was written as a University Project in May 2014 by 
+Nicolas La Verghetta 20762905
+Andrew Edwards 20937641
 This project contains two main functions,
 AI program that plays the game Threes as well as playable GUI version of the game
 To run AI navigate to the Run directory in a terminal window and execute java -jar Ai.jar

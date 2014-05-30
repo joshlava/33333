@@ -14,7 +14,8 @@ public class Search {
 	public static PriorityQueue<Node> closedList;
 	public static int numNodes;
 
-	public static ArrayList almostAstar(int[][] board) {
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static ArrayList<String> almostAstar(int[][] board) {
 		Comparator<Node> comparator = new BestMoveComparator();
 		OpenList = new PriorityQueue<Node>(15, comparator);
 		closedList = new PriorityQueue<Node>(15, comparator);
@@ -77,11 +78,9 @@ public class Search {
 		GUI.Threes.readFile(input);
 		GUI.Threes.set();
 
+		@SuppressWarnings({  "unused" })
 		ArrayList<String> test = almostAstar(GUI.Threes.board);
-		String printMoves = "";
-		while (!test.isEmpty()) {
-			printMoves += test.remove(test.size() - 1);
-		}
+	
 	}
 
 }

@@ -56,7 +56,7 @@ public class heuristics {
 		int rat = hscore[0] / 10 + 1;
 		int multi = rat;
 
-		double ran = Math.random() * 1000;
+		//double ran = Math.random() * 1000;
 		hscore[1] = CountWhite(board) * (rat) - num12(board) * rat
 				+ getBig(board) * rat /* ***********THIS IS THE COMBINATION
 									 * + board[0][0] * multi + (multi - multi /
@@ -213,6 +213,7 @@ public class heuristics {
 		int max = 0;
 		int[] macord = { 0, 0 };
 		int[] ma2cord = { 0, 0 };
+		@SuppressWarnings("unused")
 		int max2 = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
