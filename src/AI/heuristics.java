@@ -58,14 +58,14 @@ public class heuristics {
 
 		double ran = Math.random() * 1000;
 		hscore[1] = CountWhite(board) * (rat) - num12(board) * rat
-				+ getBig(board) * rat /*
+				+ getBig(board) * rat /* ***********THIS IS THE COMBINATION
 									 * + board[0][0] * multi + (multi - multi /
 									 * 10) * board[0][1] + (multi - multi / 10)
 									 * board[1][0] + (multi - multi / 10) *
 									 * board[1][1]
 									 */+ hscore[0] * rat + numCom(board)// +(int)ran
 		;
-		// hscore[1]=CountWhite(board)*rat+hscore[0]*rat;
+		// hscore[1]=CountWhite(board)*rat+hscore[0]*rat; MORE COMBINATION 
 		// hscore[1]=numCom(board);
 		// hscore[1]=-getBig(board);
 
@@ -74,7 +74,7 @@ public class heuristics {
 				hscore[1] += board[i][j] * multi / (1 + i + j);
 			}
 		}
-		hscore[1] = newHeur(board) * rat + hscore[0];
+		hscore[1] = newHeur(board) * rat + hscore[0]; //THIS IS WHERE NEWHEUR OVERWRITES
 		// hscore[1]=CountWhite(board);
 		return hscore;
 	}
