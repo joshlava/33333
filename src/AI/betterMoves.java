@@ -2,14 +2,23 @@ package AI;
 
 import java.util.ArrayList;
 
+import old.Moves;
+/**
+ * 
+ * @author Nicolas La Verghetta
+ * @author Andrew Edwards
+ * A class that controls the movements of the boards, this particular class differs from those in old.Moves and GUI.Threes
+ * as it returns a Board 
+ *
+ */
 public class betterMoves {
 	public static Board Down(int[][] board,int n) {
 		int k = 3;
 		boolean did = false;
 		boolean did1 = did;
 		int lowest = 0;
-		int[] scores = { -1, -1 };
 		int numMoved = 0;
+		@SuppressWarnings("unchecked")
 		ArrayList<Integer>[] colScore = new ArrayList[4];
 		for (int i = 0; i < 4; i++) {
 			did = false;

@@ -24,7 +24,7 @@ import java.util.LinkedList;
 
 import javax.swing.*;
 
-import AI.Moves;
+import old.Moves;
 
 /**
  *

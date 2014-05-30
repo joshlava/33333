@@ -3,7 +3,7 @@ package AI;
 import java.util.Comparator;
 
 /*
- * Josh La Verghetta 20762905
+ * Nicolas La Verghetta 20762905
  * Andrew Edwards 20937641
  * A class to compare different moves against each other using the heuristic function score as the item to be compared for use in a sorting algorithm.
  */

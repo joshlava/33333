@@ -1,5 +1,7 @@
 package AI;
 
+import old.Moves;
+
 public class Board {
 	private int[][] board;
 	private boolean gameOver;
@@ -9,15 +11,15 @@ public class Board {
 	public Board(int [][] board,boolean gameOver){
 		this.board=board;
 		this.gameOver=gameOver;
-		hScore=Moves.Hscore(board)[1];
-		score=Moves.Hscore(board)[0];
+		hScore=heuristics.Hscore(board)[1];
+		score=heuristics.Hscore(board)[0];
 	}
 	public Board(int [][] board,boolean gameOver,String newMove){
 		this.board=board;
 		this.gameOver=gameOver;
 		//if(!gameOver){
-		hScore=Moves.Hscore(board)[1];
-		score=Moves.Hscore(board)[0];//}
+		hScore=heuristics.Hscore(board)[1];
+		score=heuristics.Hscore(board)[0];//}
 		/*else{
 			hScore=1;
 			score=Moves.Hscore(board)[0];
@@ -27,8 +29,8 @@ public class Board {
 	public Board(int [][] board){
 		this.board=board;
 		gameOver=false;
-		hScore=Moves.Hscore(board)[1];
-		score=Moves.Hscore(board)[0];
+		hScore=heuristics.Hscore(board)[1];
+		score=heuristics.Hscore(board)[0];
 	}
 	
 	public void setBoard(int [][]board){

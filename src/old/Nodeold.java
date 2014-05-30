@@ -1,6 +1,8 @@
-package AI;
+package old;
 
 import java.util.ArrayDeque;
+
+import AI.Node;
 
 /* 
  * Josh La Verghetta 20762905

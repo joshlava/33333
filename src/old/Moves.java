@@ -1,4 +1,4 @@
-package AI;
+package old;
 
 //****************************************
 //need to fix input file so it ignores anything other than LRUD
@@ -10,7 +10,8 @@ import java.lang.Math;
 /*
  * Josh La Verghetta 20762905
  * Andrew Edwards 20937641
- * A class to carry out moves on the Threes board.
+ * A class to carry out moves on the Threes board. The move methods from this class are no longer used however many of the other function are still used
+ * 
  */
 public class Moves {
 
@@ -99,7 +100,7 @@ public class Moves {
 			} else {
 				tempMoves.remove();
 			}
-			
+
 		}
 
 		resetNext();
@@ -108,24 +109,23 @@ public class Moves {
 			Listy.addFirst(-1);
 			Listy.addFirst(-1);
 		} else {
-			/*for (int k=0;k<4;k++){
-				for(int j=0;j<4;j++){
-					System.out.print(tempBoard[k][j]+" ");
-				}System.out.println();
-			}System.out.println("Moves ");
-			int loop= Listy.size();
-			for(int i=0;i<loop;i++){
-				System.out.print(Listy.get(i));
-			}System.out.println();*/
+			/*
+			 * for (int k=0;k<4;k++){ for(int j=0;j<4;j++){
+			 * System.out.print(tempBoard[k][j]+" "); }System.out.println();
+			 * }System.out.println("Moves "); int loop= Listy.size(); for(int
+			 * i=0;i<loop;i++){ System.out.print(Listy.get(i));
+			 * }System.out.println();
+			 */
 			Listy.addFirst(score);
 			Listy.addFirst(hScore);
-			
+
 		}
-		if (print){
+		if (print) {
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 4; j++) {
 					System.out.print(tempBoard[i][j] + " ");
-				}System.out.println();
+				}
+				System.out.println();
 			}
 		}
 		return Listy;
@@ -642,84 +642,106 @@ public class Moves {
 		int[] hscore = { -1, -1 };
 		hscore[0] = countScore(board);
 		int rat = hscore[0] / 10 + 1;
-		int multi = rat ;
+		int multi = rat;
 
-	//	double ran = Math.random() * 1000;
+		double ran = Math.random() * 1000;
 		hscore[1] = CountWhite(board) * (rat) - num12(board) * rat
-				+ getBig(board) * rat*rat + board[0][0] * multi
+				+ getBig(board) * rat /* + board[0][0] * multi
 				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
-				* board[1][0] + (multi - multi / 10) * board[1][1] + hscore[0]
-				* rat +numCom(board)// +(int)ran
+				* board[1][0] + (multi - multi / 10) * board[1][1] */+ hscore[0]
+				* rat + numCom(board)// +(int)ran
 		;
-	//	hscore[1]=CountWhite(board)*rat+hscore[0]*rat;
-	//	hscore[1]=numCom(board);
-	//	hscore[1]=-getBig(board);
-		
-		for (int i=0;i<4;i++){
-			for (int j=0;j<4;j++){
-				hscore[1]+=board[i][j]*multi/(1+i+j);
+		// hscore[1]=CountWhite(board)*rat+hscore[0]*rat;
+		// hscore[1]=numCom(board);
+		// hscore[1]=-getBig(board);
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				hscore[1] += board[i][j] * multi / (1 + i + j);
 			}
 		}
-		hscore[1]=newHeur(board);
+		 hscore[1]=newHeur(board);//+rat;
 		return hscore;
 	}
-	public static int newHeur(int [][]board){
-		int heur=100;
-		for (int i=0;i<4;i++){
-			for (int j=0;j<3;j++)
-			if(board[i][j]>board[i][j+1]){
-				heur++;
-			}else 
-					heur--;
-			
+
+	public static int newHeur(int[][] board) {
+		int heur = 0;
+		int z = CountWhite(board)*countScore(board)/10;
+		heur += z;
+		if(z>5){
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 3; j++)
+				if (board[i][j] > board[i][j + 1]) {
+					heur+=board[i][j];
+				} 
+
 		}
-		for (int j=0;j<4;j++){
-			for (int i=0;i<3;i++)
-			if(board[i][j]>board[i+1][j]){
-				heur++;
-				
-				
-			}else heur--;
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 3; i++)
+				if (board[i][j] > board[i + 1][j]) {
+					heur+=board[i][j];
+
+				} 
 		}
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 3; j++)
+				if (board[i][j] == board[i][j + 1]&& board[i][j]>2) {
+					heur+=board[i][j];
+				} 
+
+		}
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 3; i++)
+				if (board[i][j] == board[i + 1][j]&&board[i][j]>2) {
+					heur+=board[i][j];
+
+				} 
+		}
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 3; j++)
+				if (board[i][j] > board[i][j + 1] * 4)
+					heur-=board[i][j+1];
+				else if( 4 * board[i][j] < board[i][j + 1]) {
+					heur-=board[i][j];
+				}
+		}
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 3; i++)
+				if (board[i][j] > board[i + 1][j] * 4)
+					heur-=board[i+1][j];
+				else if( board[i][j] * 4 < board[i + 1][j]) {
+					heur-=board[i][j];
+				}
+
+		}
+		}
+
 		
-		for (int i=0;i<4;i++){
-			for (int j=0;j<3;j++)
-			if(board[i][j]>board[i][j+1]*4||4*board[i][j]<board[i][j+1]){
-				heur--;
-			}
-		}
-		for (int j=0;j<4;j++){
-			for (int i=0;i<3;i++)
-			if(board[i][j]>board[i+1][j]*4||board[i][j]*4<board[i+1][j]){
-				heur--;
-			}
-			
-		}
-		
-		int z= CountWhite(board);
-		heur+=z;
 		return heur;
-		
+
 	}
-	public static int numCom(int [][]board){
-		int score=0;
-		for (int i=0;i<4;i++){
-			for(int j=0;j<3;j++){
-			if(board[i][j]>2 && board[i][j]==board[i][j+1])
-				score+=board[i][j];
-				
-				}
+
+	public static int numCom(int[][] board) {
+		int score = 0;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 3; j++) {
+				if (board[i][j] > 2 && board[i][j] == board[i][j + 1])
+					score += board[i][j];
+
+			}
 		}
-		for (int j=0;j<4;j++){
-			for(int i=0;i<3;i++){
-			if(board[i][j]>2 && board[i][j]==board[i+1][j])
-				score+=board[i][j];
-				
-				}
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 3; i++) {
+				if (board[i][j] > 2 && board[i][j] == board[i + 1][j])
+					score += board[i][j];
+
+			}
 		}
 		return score;
-		
+
 	}
+
 	/*
 	 * A function to calculate the score of a given board
 	 * 
@@ -758,23 +780,23 @@ public class Moves {
 	 */
 	public static int getBig(int[][] board) {
 		int max = 0;
-		int [] macord={0,0};
-		int []ma2cord={0,0};
-		int max2=0;
+		int[] macord = { 0, 0 };
+		int[] ma2cord = { 0, 0 };
+		int max2 = 0;
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 				if (board[i][j] > max) {
-					max2=max;
-					ma2cord[0]=i;
-					ma2cord[1]=j;
+					max2 = max;
+					ma2cord[0] = i;
+					ma2cord[1] = j;
 					max = board[i][j];
-					macord[0]=i;
-					macord[1]=j;
+					macord[0] = i;
+					macord[1] = j;
 				}
 			}
-			
+
 		}
-		int dist= macord[0]-ma2cord[0] + macord[1]-ma2cord[1];
+		int dist = macord[0] - ma2cord[0] + macord[1] - ma2cord[1];
 		return dist;
 	}
 

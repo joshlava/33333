@@ -1,4 +1,4 @@
-package AI;
+package old;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,10 +9,15 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
+import AI.BestMoveComparator;
+import AI.Node;
+
 /*
  * Nicolas La Verghetta 20762905
  * Andrew Edwards 20937641
- * A class to hold the logic for our "Artificial Intelligence" agent 
+ * A class to hold the logic for our "Artificial Intelligence" agent
+ * This was our first attempt at making an A * like game player. it worked with limited success 
+ * and was overall too messy to continue work so we decided to start again with the Search class 
  */
 
 public class AI {
