@@ -1,9 +1,10 @@
 package AI;
+
 /**
  * 
  * @author Josh La Verghetta 20762905
- * @author Andrew Edwards 20937641
- *A class used for calculation our heuristic scores.
+ * @author Andrew Edwards 20937641 A class used for calculation our heuristic
+ *         scores.
  */
 public class heuristics {
 	/**
@@ -26,7 +27,8 @@ public class heuristics {
 	/**
 	 * 
 	 * @param board
-	 * @return the number of 1's and 2's on the board, this is subtracted from the score
+	 * @return the number of 1's and 2's on the board, this is subtracted from
+	 *         the score
 	 */
 	public static int num12(int board[][]) {
 		int num = 0;
@@ -56,10 +58,12 @@ public class heuristics {
 
 		double ran = Math.random() * 1000;
 		hscore[1] = CountWhite(board) * (rat) - num12(board) * rat
-				+ getBig(board) * rat /* + board[0][0] * multi
-				+ (multi - multi / 10) * board[0][1] + (multi - multi / 10)
-				* board[1][0] + (multi - multi / 10) * board[1][1] */+ hscore[0]
-				* rat + numCom(board)// +(int)ran
+				+ getBig(board) * rat /*
+									 * + board[0][0] * multi + (multi - multi /
+									 * 10) * board[0][1] + (multi - multi / 10)
+									 * board[1][0] + (multi - multi / 10) *
+									 * board[1][1]
+									 */+ hscore[0] * rat + numCom(board)// +(int)ran
 		;
 		// hscore[1]=CountWhite(board)*rat+hscore[0]*rat;
 		// hscore[1]=numCom(board);
@@ -70,79 +74,87 @@ public class heuristics {
 				hscore[1] += board[i][j] * multi / (1 + i + j);
 			}
 		}
-		 hscore[1]=newHeur(board)*rat+hscore[0];
+		hscore[1] = newHeur(board) * rat + hscore[0];
+		// hscore[1]=CountWhite(board);
 		return hscore;
 	}
-/**
- * 
- * @param board
- * @return our main heuristic function, this has 3 main functions,
- * 1. monotonicity, we try and keep the baord tiles in decreasing order from top->bottom and left->right
- * 2. smoothness, we try and keep like tiles next to each other so they can be easily combined
- * 3. amount of whitespace, we try and maximise the amount of whitespace on the board, the hscore assigned to whitespace is also increased as the games scored increases
- */
+
+	/**
+	 * 
+	 * @param board
+	 * @return our main heuristic function, this has 3 main functions, 1.
+	 *         monotonicity, we try and keep the baord tiles in decreasing order
+	 *         from top->bottom and left->right 2. smoothness, we try and keep
+	 *         like tiles next to each other so they can be easily combined 3.
+	 *         amount of whitespace, we try and maximise the amount of
+	 *         whitespace on the board, the hscore assigned to whitespace is
+	 *         also increased as the games scored increases
+	 */
 	public static int newHeur(int[][] board) {
 		int heur = 0;
-		int z = CountWhite(board)*countScore(board)/10;
-		heur += z;
-		if(z>5){
+		int z = CountWhite(board) ;
+		int y=z* countScore(board) / 6;
+	//	heur += z;
+		
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 3; j++)
 				if (board[i][j] > board[i][j + 1]) {
-					heur+=board[i][j];
-				} 
+					heur += board[i][j];
+				}
 
 		}
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 3; i++)
 				if (board[i][j] > board[i + 1][j]) {
-					heur+=board[i][j];
+					heur += board[i][j];
 
-				} 
+				}
 		}
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 3; j++)
-				if (board[i][j] == board[i][j + 1]&& board[i][j]>2) {
-					heur+=board[i][j];
-				} 
+				if (board[i][j] == board[i][j + 1] && board[i][j] > 2) {
+					heur += board[i][j];
+				}
 
 		}
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 3; i++)
-				if (board[i][j] == board[i + 1][j]&&board[i][j]>2) {
-					heur+=board[i][j];
+				if (board[i][j] == board[i + 1][j] && board[i][j] > 2) {
+					heur += board[i][j];
 
-				} 
+				}
 		}
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 3; j++)
 				if (board[i][j] > board[i][j + 1] * 4)
-					heur-=board[i][j+1];
-				else if( 4 * board[i][j] < board[i][j + 1]) {
-					heur-=board[i][j];
+					heur -= board[i][j + 1];
+				else if (4 * board[i][j] < board[i][j + 1]) {
+					heur -= board[i][j];
 				}
 		}
 		for (int j = 0; j < 4; j++) {
 			for (int i = 0; i < 3; i++)
 				if (board[i][j] > board[i + 1][j] * 4)
-					heur-=board[i+1][j];
-				else if( board[i][j] * 4 < board[i + 1][j]) {
-					heur-=board[i][j];
+					heur -= board[i + 1][j];
+				else if (board[i][j] * 4 < board[i + 1][j]) {
+					heur -= board[i][j];
 				}
 
 		}
-		}
+		if(z>5)
+			heur=heur*2;
+		heur+=y;
 
-		
 		return heur;
 
 	}
-/**
- * 
- * @param board
- * @return the number of addjacent tiles that can be combined
- */
+
+	/**
+	 * 
+	 * @param board
+	 * @return the number of addjacent tiles that can be combined
+	 */
 	public static int numCom(int[][] board) {
 		int score = 0;
 		for (int i = 0; i < 4; i++) {
@@ -191,7 +203,6 @@ public class heuristics {
 		}
 		return count;
 	}
-
 
 	/**
 	 * 

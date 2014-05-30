@@ -80,7 +80,13 @@ public class Node {
 			System.out.println(moves.get(i));
 		}
 	}
-
+	public String stringMoves(){
+		String pMoves="";
+		for(int i=0;i<moves.size();i++){
+			pMoves+=moves.get(i);
+		}
+		return pMoves;
+	}
 	public void setBoard(Board board) {
 		this.board = board;
 	}

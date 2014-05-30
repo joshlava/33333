@@ -74,4 +74,14 @@ public class Board {
 			}System.out.println();
 		}System.out.println();
 	}
+	public String[] printBoardbyLine(){
+		String [] printer=new String [4];
+		
+		for(int i=0;i<4;i++){
+			printer[i]="";
+			for(int j=0;j<4;j++){
+				printer[i]+=board[i][j]+" ";
+			}
+		}return printer;
+	}
 }

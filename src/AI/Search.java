@@ -26,13 +26,13 @@ public class Search {
 			Node current = OpenList.poll();
 		
 			if (current.getBoard().getGame()||numNodes>z*4) {
-				if(numNodes>5000||numNodes>z*4){
+				if(numNodes>10000||numNodes>z*4){
 					closedList.add(current);
 					current =closedList.poll();
-					System.out.println("game over after "+numNodes+" nodes");
-					System.out.println("Score was "+current.board.score);
-					System.out.println("Hscore was "+ current.board.getHScore());
-					current.board.printBoard();
+					String score= "Score was "+current.board.score + " heuristic score was "+current.board.hScore;
+					String gg="Game over after expanding "+numNodes+" nodes";
+					
+					GUI.Threes.printToFile(current.stringMoves(), score, gg, current.board);
 					return current.getMoves();
 				}
 				closedList.add(current);
@@ -64,9 +64,10 @@ public class Search {
 		GUI.Threes.set();
 		
 		ArrayList<String> test=almostAstar(GUI.Threes.board);
+		String printMoves="";
 		while(!test.isEmpty()){
-			System.out.print(test.remove(test.size()-1));
-		}System.out.println();
+			printMoves+=test.remove(test.size()-1);
+		}
 	}
 
 }

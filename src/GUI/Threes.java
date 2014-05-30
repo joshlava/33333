@@ -93,6 +93,35 @@ public class Threes {
 			e.printStackTrace();
 		}
 	}
+	public static void printToFile(String moves,String scores,String gg,AI.Board b) {
+		try {
+
+			File file = new File("out.txt");
+
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(gg);
+			bw.newLine();
+			bw.write(scores);
+			bw.newLine();
+			/*for (int i=0;i<4;i++){
+				bw.write(b.printBoardbyLine()[i]);
+				bw.newLine();
+			}*/
+			bw.write(moves);
+			bw.close();
+
+			System.out.println("Game Over");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	public static String getNext(int n){
 		return next.get(n);
 	}
